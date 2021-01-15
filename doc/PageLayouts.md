@@ -240,6 +240,7 @@ The first part of the string defines the number of controls, between `0` and `4`
 Then the string defines the size (in columns) of each controls. For example: `'1-3'` means 1 control spaning 3 columns, `'2-4-8'` means 2 controls, the first spaning 4 columns and the second 8.
 - **Each control should have a size specified.**
 - **The controls can only span 12 columns in total.**
+
 If the page is rendered on a column format, the controls will be rendered in two rows of 6 columns.
 
 The last part of the string defines how the controls should be aligned horizontally:
@@ -248,4 +249,5 @@ The last part of the string defines how the controls should be aligned horizonta
 - `'...-c'`: center
 - `'...-b'`: space between (spread)
 - `'...-a'`: space around (spread with padding)
+
 This part is optional and will default to left aligned.
