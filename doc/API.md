@@ -23,7 +23,7 @@ let PM = tMap.PageManager(container, layout, controls, header, footer, minWidth,
 - `header` and `footer` are the string selectors for the DOM element acting as page header and footer. Their height will be deducted when computing the page size. They both default to `''` (no element).
 - `minWidth` and `minHeight` are integers used to set the page minimum size. They both default to `600`. 
 
-For more detail about the layout and controls parameters, check [this page](./PageLayout.md).
+For more detail about the layout and controls parameters, check [this page](./PageLayouts.md).
 
 The Page Manager instance created, `PM`, is an object listing the selectors and sizes of each panels generated. For example, if you choose to generate layout with 3 panels and 2 controls, `PM` will contain 5 attributes: `panel1`, `panel2`, `panel3`, `control1`, and `control2`. Each of these attributes will have 3 attributes of their own: `c` the string selector for the container created, `w` the width available for it, and `h` the height.
 ```javascript
