@@ -1,38 +1,40 @@
 {
-  "name": "bubble-map-interface",
-  "version": "3.0.0",
+  "name": "topic-mapping-interface",
+  "version": "4.0.0",
   "description": "",
   "scripts": {
     "serve": "./node_modules/.bin/reload -b -d ./app -p 8000 | ./node_modules/.bin/rollup -c -w",
-    "build": "NODE_ENV=production ./node_modules/.bin/rollup -c"
+    "build": "NODE_ENV=production ./node_modules/.bin/rollup -c",
+    "build-prod": "NODE_ENV=production ./node_modules/.bin/rollup -c",
+    "build-dev": "./node_modules/.bin/rollup -c"
   },
   "author": "P. Le Bras",
   "license": "CC-BY-NC",
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "@rbnlffl/rollup-plugin-eslint": "^0.1.4",
-    "@rollup/plugin-babel": "^5.0.3",
-    "@rollup/plugin-commonjs": "^13.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.1",
-    "@rollup/plugin-replace": "^2.3.3",
-    "autoprefixer": "^9.8.0",
-    "eslint": "^7.2.0",
-    "less": "^3.11.3",
-    "reload": "^3.1.0",
-    "rollup": "^2.15.0",
-    "rollup-plugin-eslint": "^7.0.0",
-    "rollup-plugin-postcss": "^3.1.2",
-    "rollup-plugin-uglify": "^6.0.4"
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@rollup/plugin-replace": "^2.3.4",
+    "autoprefixer": "^10.2.1",
+    "eslint": "^7.17.0",
+    "less": "^4.1.0",
+    "reload": "^3.1.1",
+    "rollup": "^2.36.1",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "browserslist": [
     "defaults"
   ],
   "dependencies": {
-    "d3": "^5.16.0",
+    "d3": "^6.3.1",
     "d3-cloud": "^1.2.5",
-    "file-saver": "^2.0.2",
-    "html2canvas": "^1.0.0-rc.5",
-    "tippy.js": "^6.2.3"
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.0.0-rc.7",
+    "lodash-es": "^4.17.20",
+    "tippy.js": "^6.2.7"
   }
 }

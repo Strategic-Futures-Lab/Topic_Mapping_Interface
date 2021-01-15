@@ -11,11 +11,13 @@ App is deployed in ```app/dist/``` as bundled and minified code. The rest of ```
 1. Install node and npm.
 2. Install the project dependencies: ```$ npm install```
 
-In development, run ```$ npm run serve``` it will launch a local server and watch the files to automatically re-build the sources and refresh the browser page when you save a file.
+In development, run ```$ npm run serve```. It will launch a local server and watch the files to automatically re-build the sources and refresh the browser page when you save a file.
 
-To build the application, run ```$ npm run build``` it will build the sources, remove sourcemaps and minify the code for deployment on a web page.
+To build the application, run ```$ npm run build```. It will build the sources, remove sourcemaps and minify the code for deployment on a web page.
 
-See [this gist](https://gist.github.com/plebras/770e9329d55722f2c2c1cddf7b06c2cf) explaining the build process.
+## Usage
+
+Check [the API doc](./doc/API.md).
 
 ---
 
