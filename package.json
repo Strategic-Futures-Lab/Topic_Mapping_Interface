@@ -1,0 +1,38 @@
+{
+  "name": "bubble-map-interface",
+  "version": "3.0.0",
+  "description": "",
+  "scripts": {
+    "serve": "./node_modules/.bin/reload -b -d ./app -p 8000 | ./node_modules/.bin/rollup -c -w",
+    "build": "NODE_ENV=production ./node_modules/.bin/rollup -c"
+  },
+  "author": "P. Le Bras",
+  "license": "CC-BY-NC",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@rbnlffl/rollup-plugin-eslint": "^0.1.4",
+    "@rollup/plugin-babel": "^5.0.3",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "@rollup/plugin-replace": "^2.3.3",
+    "autoprefixer": "^9.8.0",
+    "eslint": "^7.2.0",
+    "less": "^3.11.3",
+    "reload": "^3.1.0",
+    "rollup": "^2.15.0",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "d3": "^5.16.0",
+    "d3-cloud": "^1.2.5",
+    "file-saver": "^2.0.2",
+    "html2canvas": "^1.0.0-rc.5",
+    "tippy.js": "^6.2.3"
+  }
+}

@@ -1,0 +1,29 @@
+div.buttonWrapper{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+div.buttonWrapper >
+button{
+    margin: 1px;
+    border: solid 1px #989898;
+    border-radius: 1px;
+    background-color: #fcfcfc;
+    color: #333333;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #cacaca;
+    font-family: 'Open Sans', sans-serif;
+}
+
+div.buttonWrapper >
+button:focus{
+    outline: none;
+}
+
+div.buttonWrapper >
+button.selected{
+    background-color: #d7dbd9;
+    font-weight: bold;
+    color: #4c4c4c;
+}

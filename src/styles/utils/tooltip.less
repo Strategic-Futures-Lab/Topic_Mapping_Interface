@@ -1,0 +1,19 @@
+@import './colors.less';
+@import './fonts.less';
+
+.tippy-box[data-theme~='dark'] {
+    background-color: @clr-blk;
+    color: @clr-wht;
+    font-family: @text-font;
+    padding: 5px 8px;
+    border-radius: 2px;
+    opacity: 0.9;
+}
+
+.tippy-box[data-theme~='light'] {
+    color: @clr-wht;
+    font-family: @text-font;
+    padding: 5px 8px;
+    border-radius: 2px;
+    opacity: 0.9;
+}

@@ -1,0 +1,23 @@
+div.searchBoxWrapper >
+input[type=text]{
+    font-family: 'Open Sans', sans-serif;
+    padding: 5px;
+    margin: 1px;
+    color: #333333;
+    border: solid 1px #989898;
+    border-radius: 1px;
+}
+
+div.searchBoxWrapper >
+input[type=text]:focus{
+    outline: none;
+    /* background-color: #7EB1DE; */
+    color: #0065BF;
+}
+
+div.searchBoxWrapper >
+input[type=text].active{
+    /* background-color: #7EB1DE; */
+    color: #0065BF;
+    font-weight: bold;
+}

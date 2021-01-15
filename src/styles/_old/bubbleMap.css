@@ -1,0 +1,124 @@
+svg.bubbleMap{
+    border: solid #333333 1px;
+}
+
+/* Default text */
+svg.bubbleMap >
+g.elements >
+text.defaultText{
+    text-anchor: middle;
+    font-family: 'Open Sans', sans-serif;
+    fill: #333333;
+}
+svg.bubbleMap >
+g.elements >
+text.defaultText.blinking{
+    animation:blinkingText 2s infinite;
+}
+@keyframes blinkingText{
+    0%{fill-opacity: 0;}
+    5%{fill-opacity: 0;}
+    45%{fill-opacity: 1;}
+    60%{fill-opacity: 1;}
+    100%{fill-opacity: 0;}
+}
+
+/* Border style */
+svg.bubbleMap >
+g.elements >
+g.borders >
+path.border{
+    fill: none;
+    stroke: #0065BF;
+
+}
+
+/* Bubble style */
+svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble{
+    cursor: pointer;
+}
+
+svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble >
+circle{
+    fill: #fcfcfc;
+    stroke: #989898;
+}
+
+svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble.highlight >
+circle{
+    stroke: #787878;
+}
+
+svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble >
+g.labels >
+text.label{
+    fill: #4c4c4c;
+    text-anchor: middle;
+    font-family: 'Open Sans', sans-serif;
+    /* No select */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+/* Highlighted bubble style */
+svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble.highlighted >
+circle{
+    fill: #D2E3F2;
+}
+
+/* svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble.highlighted >
+g.labels >
+text.label{
+} */
+
+/* Selected bubble style */
+svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble.selected >
+circle{
+    fill: #d7dbd9;
+    /* stroke: #0065BF;  */
+}
+
+svg.bubbleMap >
+g.elements >
+g.bubbles >
+g.bubble.selected >
+g.labels >
+text.label{
+    font-weight: bold;
+    /* fill: #fcfcfc; */
+}
+
+/* Tooltip */
+div.tooltip{
+    background-color: #535554;
+    color: #fcfcfc;
+    opacity: 0.7;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: 'Open Sans', sans-serif;
+}

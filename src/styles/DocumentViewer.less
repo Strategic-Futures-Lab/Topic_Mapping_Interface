@@ -1,0 +1,33 @@
+@import './utils/animations.less';
+@import './utils/fonts.less';
+@import './utils/colors.less';
+
+div.docViewWrapper{
+    border: solid 1px @clr-blk;
+    overflow-y: scroll;
+    p.defaultText{
+        position: relative;
+        margin: 0;
+        text-align: center;
+        fill: @clr-blk;
+        font-family: @text-font;
+        opacity: 0.8;
+        &.blinking{
+            animation:blinkingText 2s infinite;
+        }
+    }
+    p.docField{
+        margin: 10px 15px;
+        font-family: @text-font;
+        span.key{
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        // span.value{
+
+        // }
+        &:hover{
+            background-color: @clr-lgter-gry;
+        }
+    }
+}

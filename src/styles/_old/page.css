@@ -1,0 +1,221 @@
+/* DEFAULT SIZE FOF 1920x1080p */
+
+div#header, div#footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+}
+
+div#header >
+h1{
+    color: #0065BF;
+    margin: 15px 0px 10px 0px;
+    font-size: 26px;
+}
+
+div#header >
+div.description{
+    width: 50%;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: solid 2px #0065BF;
+}
+
+div#header >
+div.description >
+p{
+    margin: 10px 0px;
+    font-size: 15px;
+}
+
+div#header >
+div.description >
+p >
+a{
+    color: #0065BF;
+    text-decoration: none;
+}
+
+div#header >
+div.description >
+p >
+a:hover{
+    color: #1A4C79;
+}
+
+div#header >
+div.description >
+p >
+span#customURL{
+    margin: 0px 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0065BF;
+}
+
+div#app{
+    margin: 5px auto;
+}
+
+div#footer >
+div.content{
+    width: 50%;
+    text-align: center;
+    margin: 5px auto;
+    /* padding-top: 10px; */
+    border-top: solid 2px #0065BF;
+    font-family: 'Open Sans', sans-serif;
+    color: #333333;
+    font-size: 15px;
+}
+
+div#footer >
+div.content >
+p{
+    font-size: 15px;
+}
+
+div#footer >
+div.content >
+p >
+a{
+    color: #0065BF;
+    text-decoration: none;
+}
+
+div#footer >
+div.content >
+p >
+a:hover{
+    color: #1A4C79;
+}
+
+@media screen and (max-height: 750px){
+    div#header >
+    h1{
+        margin: 8px 0px 4px 0px;
+        font-size: 18px;
+    }
+    div#header >
+    div.description >
+    p{
+        margin: 4px 0px;
+        font-size: 10px;
+    }
+    div#header >
+    div.description >
+    p >
+    span#customURL{
+        margin: 0px 5px;
+        font-size: 14px;
+    }
+    div#footer >
+    div.content >
+    p{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-height: 1000px){
+    div#header >
+    h1{
+        margin: 12px 0px 8px 0px;
+        font-size: 22px;
+    }
+    div#header >
+    div.description >
+    p{
+        margin: 8px 0px;
+        font-size: 14px;
+    }
+    div#header >
+    div.description >
+    p >
+    span#customURL{
+        font-size: 16px;
+    }
+    div#footer >
+    div.content >
+    p{
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-height: 1600px){
+    div#header >
+    h1{
+        margin: 18px 0px 12px 0px;
+        font-size: 30px;
+    }
+    div#header >
+    div.description >
+    p{
+        margin: 12px 0px;
+        font-size: 18px;
+    }
+    div#header >
+    div.description >
+    p >
+    span#customURL{
+        font-size: 22px;
+    }
+    div#footer >
+    div.content >
+    p{
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-height: 2000px){
+    div#header >
+    h1{
+        margin: 20px 0px 15px 0px;
+        font-size: 36px;
+    }
+    div#header >
+    div.description >
+    p{
+        margin: 15px 0px;
+        font-size: 22px;
+    }
+    div#header >
+    div.description >
+    p >
+    span#customURL{
+        font-size: 26px;
+    }
+    div#footer >
+    div.content >
+    p{
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-height: 2900px){
+    div#header >
+    h1{
+        margin: 20px 0px 15px 0px;
+        font-size: 46px;
+    }
+    div#header >
+    div.description >
+    p{
+        margin: 15px 0px;
+        font-size: 28px;
+    }
+    div#header >
+    div.description >
+    p >
+    span#customURL{
+        font-size: 34px;
+    }
+    div#footer >
+    div.content >
+    p{
+        font-size: 28px;
+    }
+}

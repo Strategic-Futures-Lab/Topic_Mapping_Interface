@@ -1,0 +1,71 @@
+@import './utils/colors.less';
+@import './utils/fonts.less';
+@import './utils/tooltip.less';
+@import './utils/animations.less';
+
+svg.bubbleMap{
+    border: solid @clr-blk 1px;
+    font-family: @text-font;
+    background-color: @clr-wht;
+    g.elements{
+        text.defaultText{
+            text-anchor: middle;
+            font-size: 15px;
+            fill: @clr-blk;
+            font-family: @text-font;
+            opacity: 0.8;
+            &.blinking{
+                animation:blinkingText 2s infinite;
+            }
+        }
+        g.borders{
+            path.border{
+                fill: none;
+                stroke: @clr-prm;
+            }
+        }
+        g.bubbles{
+            g.bubble{
+                cursor: pointer;
+                outline: none;
+                circle{
+                    fill: @clr-wht;
+                    stroke: @clr-gry;
+                }
+                g.labels{
+                    text.label{
+                        fill: @clr-drk-gry;
+                        text-anchor: middle;
+                        font-family: @text-font;
+                        user-select: none;
+                    }
+                }
+                &:hover{
+                    circle{
+                        stroke: @clr-drk-gry;
+                    }
+                    g.labels{
+                        text.label{
+                            fill: @clr-drk-gry;
+                        }
+                    }
+                }
+                &.highlighted{
+                    circle{
+                        fill: @clr-lgt-prm;
+                    }
+                }
+                &.selected{
+                    circle{
+                        fill: @clr-lgter-gry;
+                    }
+                    g.labels{
+                        text.label{
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
