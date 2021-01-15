@@ -7,11 +7,13 @@ Check [this section](#styles) for more details.
 
 The script sets up `tMap`, the top level library object for interacting with the Topic Map interface and its modules.
 
+- [Page Layout Management](#tmappagemanager)
+
 ## `tMap.PageManager`
 
 The page manager sets a grid on the HTML page that will automatically position and size containers for the modules.
 
-It is instantiates as follow:
+It is instantiated as follow:
 ```javascript
 let PM = tMap.PageManager(container, layout, controls, header, footer, minWidth, minHeight)
 ```
@@ -24,7 +26,11 @@ let PM = tMap.PageManager(container, layout, controls, header, footer, minWidth,
 For more detail about the layout and controls parameters, check [this page](./PageLayout.md).
 
 The Page Manager instance created, `PM`, is an object listing the selectors and sizes of each panels generated. For example, if you choose to generate layout with 3 panels and 2 controls, `PM` will contain 5 attributes: `panel1`, `panel2`, `panel3`, `control1`, and `control2`. Each of these attributes will have 3 attributes of their own: `c` the string selector for the container created, `w` the width available for it, and `h` the height.
-
+```javascript
+PM.panel1.c // --> the selector for panel1 container, typically 'div#panel1'
+PM.panel1.w // --> the width available for panel1, e.g. 500
+PM.panel1.h // --> the height available for panel1, e.g. 300
+```
 
 ### `PageManager.watch`
 
