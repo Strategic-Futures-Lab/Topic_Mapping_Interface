@@ -57,5 +57,5 @@ function setupBuild(src, dist, name){
 }
 
 export default [
-    setupBuild('TopicMapInterface.js', 'TopicMapInterface.js', 'TM')
+    setupBuild('TopicMapInterface.js', 'TopicMapInterface.js', 'tMap')
 ]

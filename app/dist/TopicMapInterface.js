@@ -1,4 +1,4 @@
-var TM = (function (exports) {
+var tMap = (function (exports) {
   'use strict';
 
   function _defineProperty(obj, key, value) {

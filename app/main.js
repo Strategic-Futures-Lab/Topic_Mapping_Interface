@@ -1,1 +1,1 @@
-let PM = TM.PageManager('div#app', 'E', '3-3-2-1-b', 'div#header', 'div#footer', 700, 700);
+let PM = tMap.PageManager('div#app', 'E', '3-3-2-1-b', 'div#header', 'div#footer', 700, 700);
