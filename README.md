@@ -1,4 +1,4 @@
-# Bubble Map Interface Application
+# Topic Mapping Interface
 
 ## Structure
 
