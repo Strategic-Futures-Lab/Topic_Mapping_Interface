@@ -6,7 +6,8 @@
     "serve": "./node_modules/.bin/reload -b -d ./app -p 8000 | ./node_modules/.bin/rollup -c -w",
     "build": "NODE_ENV=production ./node_modules/.bin/rollup -c",
     "build-prod": "NODE_ENV=production ./node_modules/.bin/rollup -c",
-    "build-dev": "./node_modules/.bin/rollup -c"
+    "build-dev": "./node_modules/.bin/rollup -c",
+    "merge-api-doc": "mdmerge -o ./doc/API.md ./doc/sections/*"
   },
   "author": "P. Le Bras",
   "license": "CC-BY-NC",
