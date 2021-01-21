@@ -60,6 +60,36 @@ export default function(Data){
     };
 
     /**
+     * Adds word to a search, or removes it if the word is already in a search
+     * if searchValue if not set (or null), will use and update searchTerm
+     * returns the process searchValue.
+     */
+    Data.processWordInSearch = function(word, searchValue=null, append=';'){
+        // test if word already in search
+        let w = word.toLowerCase();
+        let s = searchValue == null ? Data.data.searchTerm : searchValue.toLowerCase();
+        let r = new RegExp(`;?\\s*${w}(\\s|;|$)`, 'gi');
+        let inSearch = r.test(s);
+        let n = '';
+        if(!inSearch){ // if word not in search, append it using specified method
+            let a = append.endsWith(' ')?append:append+' ';
+            n = s==''?w:s+a+w;
+        } else { // if word already in search, remove it
+            n = s.replace(w,'')
+                .replace(' ;', ';')
+                .replace('  ', ' ')
+                .replace(';;', ';');
+            while(n.startsWith(';') || n.startsWith(' ')){
+                n = n.substring(1, n.length);
+            }
+        }
+        if(searchValue == null){
+            Data.setSearchTerm(n);
+        }
+        return n;
+    };
+
+    /**
      * Fills provided set ids with docIds of documents containing all provided terms
      * Will throw error if labels index was not loaded
      */
@@ -231,4 +261,13 @@ export default function(Data){
         }
         return labels;
     };
+
+    /**
+     *  Combines getLabelsFromSearch, getTopicIdsFromSearch, and getDocIdsFromSearch
+     */
+    Data.getFromSearch = function(){
+        return {labels:Data.getLabelsFromSearch(),
+                topics:Data.getTopicIdsFromSearch(),
+                docs:Data.getDocIdsFromSearch()}
+    }
 }
