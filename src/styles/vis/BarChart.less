@@ -1,0 +1,30 @@
+@import '../utils/colors.less';
+@import '../utils/fonts.less';
+@import '../utils/tooltip.less';
+
+svg.barchart{
+    g.chart{
+        g.bars{
+            rect.bar{
+                fill: @clr-lgter-gry;
+                stroke: @clr-lgt-gry;
+                stroke-width: 2px;
+                opacity: 0.9;
+                outline: none;
+                &.highlight{
+                    stroke: @clr-gry;
+                    stroke-width: 2px;
+                    opacity: 1;
+                }
+                &.selected{
+                    stroke: @clr-drk-gry;
+                    stroke-width: 2px;
+                    opacity: 1;
+                }
+            }
+        }
+        g.scale{
+            font-family: @text-font;
+        }
+    }
+}

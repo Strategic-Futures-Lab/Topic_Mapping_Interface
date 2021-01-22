@@ -18,6 +18,11 @@ let DM = tMap.DataManager();
 
 let mainMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h)
     .setTooltip(d=>d.size)
+    .setTooltipChart((t,d)=>{
+        tMap.HorizontalBarChart(t, 200, 100)
+            .setTicks(3, '.0%')
+            .render(DM.getMainTopicDistribEntryNorm(d.topicId))
+    })
     .setClickCB(selectMainTopic)
     .toggleDefaultText('Loading...', 2, true)
     .setMargin([40,10,10,10])
@@ -29,6 +34,11 @@ let wordcloud = tMap.WordCloud(PM.panel3.c, PM.panel3.w, PM.panel3.h)
     .toggleTitle('Topic Labels');
 let subMap = tMap.BubbleMap(PM.panel2.c, PM.panel2.w, PM.panel2.h)
     .setTooltip(d=>d.size)
+    .setTooltipChart((t,d)=>{
+        tMap.VerticalBarChart(t, 200, 100)
+            .setTicks(3, '.0%')
+            .render(DM.getSubTopicDistribEntryNorm(d.topicId))
+    })
     .setClickCB(selectSubTopic)
     .toggleDefaultText('Click on a bubble to see more topics.')
     .setMargin([40,10,10,10])

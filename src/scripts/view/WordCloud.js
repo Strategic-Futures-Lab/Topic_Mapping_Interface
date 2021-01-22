@@ -57,14 +57,11 @@ export default function(container = 'body', width = 800, height = 600){
                 .merge(texts)
                 .style('font-size', d=>`${d.size}px`)
                 .attr('transform', d=>`translate(${d.x},${d.y})rotate(${d.rotate})`)
-                .text(d=>d.text)
-                .style('cursor', wordClick?'pointer':'normal')
-                .on('click', wordClick)
-                .on('mouseover', wordMouseover)
-                .on('mouseout', wordMouseout);
-        }
+                .text(d=>d.text);
 
-        centerWordCloud();
+            attachCallbacks();
+            centerWordCloud();
+        }
     }
 
     function centerWordCloud(){
@@ -101,6 +98,14 @@ export default function(container = 'body', width = 800, height = 600){
         }
     }
 
+    function attachCallbacks(){
+        svg.selectAll('text.label')
+            .style('cursor', wordClick?'pointer':'normal')
+            .on('click', wordClick)
+            .on('mouseover', wordMouseover)
+            .on('mouseout', wordMouseout);
+    }
+
     WordCloud._onResize = ()=>{
         centerWordCloud();
     };
@@ -122,11 +127,13 @@ export default function(container = 'body', width = 800, height = 600){
     };
     WordCloud.setWordClick = function(f){
         wordClick = f;
+        attachCallbacks();
         return WordCloud;
     };
     WordCloud.setWordMouseover = function(cbOver, cbOut){
         wordMouseover = cbOver;
         wordMouseout = cbOut;
+        attachCallbacks();
         return WordCloud;
     };
     WordCloud.setTextSizeRange = function(range = [10,25]){
