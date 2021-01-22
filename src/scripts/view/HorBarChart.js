@@ -176,7 +176,7 @@ export default function(container='body', width=800, height=600){
         setBarTooltips();
         return HorBarChart;
     };
-    HorBarChart.setClickCB = function(cb){
+    HorBarChart.setBarClick = function(cb){
         barClickCB = cb;
         attachCallbacks();
         return HorBarChart;
@@ -189,7 +189,7 @@ export default function(container='body', width=800, height=600){
     // serie data:
     // [ {key:string,value:number}, ...]
     HorBarChart.render = function(serie){
-        HorBarChart.toggleDefaultText();
+        HorBarChart._removeDefaultText();
         render(serie);
         return HorBarChart;
     };

@@ -113,7 +113,7 @@ export default function(container = 'body', width = 800, height = 600){
     // public
 
     WordCloud.render = function(labels){
-        WordCloud.toggleDefaultText();
+        WordCloud._removeDefaultText();
         render(labels);
         return WordCloud;
     };

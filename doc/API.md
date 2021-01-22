@@ -1,3 +1,4 @@
+
 # Topic Mapping Interface - API doc
 
 The Topic Mapping Interface script and stylesheet bundles are located in [`app/dist`](../app/dist).
@@ -9,6 +10,13 @@ The script sets up `tMap`, the top level library object for interacting with the
 
 - [Page Layout Management](#page-manager)
 - [Data Management](#data-manager)
+- [Visualisation Modules](#visualisation-modules)
+    - [Bubble Topic Map](#bubble-topic-map)
+    - [Wordcloud](#worcloud)
+    - [Trend Chart](#trend-chart)
+    - [Bar Chart](#bar-chart)
+    - [Line Chart](#line-chart)
+
 
 ## Page Manager
 
@@ -43,6 +51,7 @@ PM.watch({
 ```
 
 This provides a map between the panels' names and the interface modules. During window resizing, Page Manager will recompute the panels' sizes and automatically updates the modules.
+
 
 ## Data Manager
 
@@ -387,6 +396,183 @@ console.log(topics.subTopicIds); // -> the list of sub topic ids containing 'lab
 console.log(docIds); // -> the list of document ids containing 'label1' and 'label2', or 'label3'
 console.log(labels); // -> [label1, label2, label3]
 ```
+
+
+## Visualisation Modules
+
+The visualisation modules all share [the same base API](#visualisation-api). At this stage, the Topic Mapping Interface comprises the following visualisation modules:
+- [Bubble Topic Map](#bubble-topic-map)
+- [Wordcloud](#worcloud)
+- [Trend Chart](#trend-chart)
+- [Bar Chart](#bar-chart)
+- [Line Chart](#line-chart)
+
+### Visualisation API
+
+The visualisation modules are all built from the same base module, meaning that they share a common base API.
+
+> Note that all of the functions below return the visualisation module itself, unless specified otherwise.
+> This allows you to chain this functions.
+
+#### `Visualisation.setWidth(value)`
+
+Sets the width of the visualisation, and automatically adjust its internal elements.
+```javascript
+let v = tMap.someVisualisation();
+v.setWidth(600); // -> the visualisation width to 600 px
+```
+
+#### `Visualisation.setHeight(value)`
+
+Sets the height of the visualisation, and automatically adjust its internal elements.
+```javascript
+let v = tMap.someVisualisation();
+v.setHeight(300); // -> the visualisation height to 300 px
+```
+
+#### `Visualisation.setSize(width, height)`
+
+Sets the width and height of the visualisation, and automatically adjust its internal elements.
+```javascript
+let v = tMap.someVisualisation();
+v.setSize(600,300); // -> the visualisation width to 600 px and height to 300 px
+```
+
+#### `Visualisation.setMargin(values)`
+
+Sets the margins of the visualisation, and automatically adjust its internal elements. The margins are given as a list: `[top, bottom, left, right]`.
+```javascript
+let v = tMap.someVisualisation();
+v.setMargin([10,20,30,10]); // -> the visualisation margins to 10px top, 20px bottom, 30px left, and 10px right
+```
+
+#### `Visualisation.toggleBorder([boolean])`
+
+Toggles a border around the visualisation module. The `boolean` parameter lets you specify which state you want: `true` = on, and `false` = off. It is optional will default to the opposite of the visualisation current state. Note that the visualisation border is on by default.
+```javascript
+let v = tMap.someVisualisation(); // -> the visualisation border is on
+v.toggleBorder(true); // -> turns on the visualisation border (no effect)
+v.toggleBorder(false); // -> removes the visualisation border
+v.toggleBorder(); // -> turns on the visualisation border
+v.toggleBorder(); // -> turns off the visualisation border
+```
+
+#### `Visualisation.toggleButton(position [,text, callback])`
+
+Toggles a button on the visualisation. Each visualisation module can have four buttons, each identified by a `position`: `'TL'` for the top-left corner, `'TR'` for the top-right corner, `'BL'` for the bottom-left corner, and `'BR'` for the bottom-right corner. To toggle a button on, you must specify its `text` and `callback` function too. To turn it off, just specify the `position`.
+```javascript
+let v = tMap.someVisualisation();
+v.toggleButton('BL', 'Action', ()=>{console.log('action BL')}); // adds a button to the bottom-left corner, with text 'Action', that prints 'action BL' to the console.
+v.toggleButton('BL'); // removes the button at the bottom-left corner.
+```
+
+#### `Visualisation.toggleTitle([text, [position]])`
+
+Toggles a title on the visualisation. If `text` is specified, toggles the title on with this text, otherwise toggles the title off. `position` lets you choose where you want the title, either at the top `'T'` (default) or bottom `'B'` of the visualisation.
+```javascript
+let v = tMap.someVisualisation();
+v.toggleTitle('Visualisation'); // -> puts 'Visualisation' as the top of the visualisation
+v.toggleTitle('Visualisation', 'B'); // -> moves 'Visualisation' as the bottom of the visualisation
+v.toggleTitle(); // -> removes 'Visualisation' from the visualisation
+```
+
+#### `Visualisation.addDefaultText(string [,scale [,blinking]])
+
+Puts a message, `string`, at the center of the visualisation. `scale` lets you specify the message size, defaults to 1. `blinking` lets you specify if you want the message to blink `true` or not `false` (default), for example when loading data.
+```javascript
+let v = tMap.someVisualisation();
+v.addDefaultText('Loading data', 1.5, true); // -> large blinking text saying 'Loading data'
+``` 
+Note that any message printed this way will be automatically removed once the visualisation is rendered.
+
+
+### Bubble Topic Map
+
+The bubble map visualisation module renders data from `mainMap` and `subMaps` files, produced by the Topic Mapping Pipeline bubble map module.
+
+A Bubble Map is instantiated using `tMap`'s `BubbleMap` function. Like most page modules, it takes three parameters: a DOM `container`, and initial `width` and `height`. These parameters are typically returned by the [Page Manager](#page-manager).
+```javascript
+let PM = tMap.PageManager(...);
+let bubbleMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h);
+```
+
+This module is built with [the visualisation API](#visualisation-api) and therefore has the same base methods.
+
+> Note that all of the functions below return the visualisation module itself, unless specified otherwise.
+> This allows you to chain this functions.
+
+#### `BubbleMap.setBubbleClick(callback)`
+
+Sets a callback for click events on the map's bubbles.
+```javascript
+bubbleMap.setBubbleClick((e,d)=>{console.log(d)}); // -> on bubble click print the bubble's datum
+```
+
+> Note that the callback has to follow D3 v6.0's callback signature:
+> `callback(event, datum)`
+> Check [D3 v6.0 migration guide](https://observablehq.com/@d3/d3v6-migration-guide#events) for more details
+
+#### `BubbleMap.setTooltip(textFunction)`
+
+Sets the function used to build the bubbles' tooltip text. If defined, this text function will be called with the bubble's datum as parameter. You can set this text function to `null` in order to disable the text tooltip.
+```javascript
+bubbleMap.setTooltip(d=>`Size: ${d.size}`); // bubbles' tooltip will print 'Size: 23.0' for example.
+```
+
+#### `BubbleMap.setTooltipChart(charFunction)`
+
+Sets the function used to build the bubbles' tooltip chart. If defined, this chart function will be called with the tooltip's DOM container and the bubble's datum as parameter. You can set this chart function to `null` in order to disable the chart tooltip.
+```javascript
+let DM = tMap.DataManager();
+bubbleMap.setTooltipChart((t,d)=>{
+    tMap.HorizontalBarChart(t, 200, 100)
+        .render(DM.getMainTopicDistribEntry(d.topicId));
+}); // bubbles' tooltip include an horizontal bar chart showing the bubble's topic distribution.
+```
+
+#### `BubbleMap.setMinimumTextSize(size)`
+
+Lets you set the minimum `size` the bubble's text can have. Note that the bubble will be scaled to fit inside the visualisation after being rendered, texts might appear larger/smaller than the value of `size`.
+```javascript
+bubbleMap.setMinimumTextSize(3); // bubbles' text can be no smaller than 3px (before map scaling).
+```
+
+#### `BubbleMap.render(dataset)`
+
+Renders the bubble map using the provided `dataset`. This `dataset` can be accessed from the data manager, e.g. `DM.data.mainMap` or `DM.data.subMap`.
+```javascript
+bubbleMap.render(DM.data.mainMap); // renders the main topic map
+bubbleMap.render(DM.getSubMap('2')); // renders the sub topic map for main topic '2'
+```
+
+#### `BubbleMap.selectBubble([topicId [,idAccessor]])`
+
+If provided with topic id, will mark the associated bubble *selected* (using CSS class). All other bubbles are marked as not selected, i.e. only one bubble can be selected at a time. If `topicId` is not specified, or set to null, the function will unselect all bubbles. `idAccessor` lets you define how to access the topic id in the bubble map topic data, it defaults to `d=>d.topicId` which corresponds to how topic ids are stored in `mainMap` and `subMaps`.
+```javascript
+bubbleMap.selectBubble('2'); // bubble for topic '2' will be classed 'selected'
+```
+
+#### `BubbleMap.highlightBubbles([topicIds [,idAccessor]])`
+
+Given a list of topic ids, will mark the associated bubbles as *highlighted* (using CSS class). Every other bubbles are marked as not highlighted. If `topicId` is not specified, or set to an empty list `[]`, the function will remove highlight for every bubbles. `idAccessor` lets you define how to access the topic id in the bubble map topic data, it defaults to `d=>d.topicId` which corresponds to how topic ids are stored in `mainMap` and `subMaps`.
+```javascript
+bubbleMap.selectBubble(['2','3','8','13']); // bubbles for topics '2','3','8', and '13' will be classed 'highlighted'
+```
+
+#### `BubbleMap.setBubblesOpacity(distributionData [,reset])
+
+Given a distribution (list of topic ids and weights), will adjust the opacity of bubbles to reflect the weights. `reset` is an optional parameter that lets you reset all the opacities to `1` (`true`), it defaults to `false`.
+```javascript
+bubbleMap.setBubblesOpacity(DM.getMainTopicsDistrib('A')); // sets the opacity of all bubbles using the distribution of field 'A'
+```
+
+#### `BubbleMap.setOpacityScale([minValue [, clampRatio [, scaleType]]])`
+
+Lets you adjust the opacity scale used with `.setBubblesOpacity`. `minValue` is minimum opacity value of the scale's range, it defaults to `0.2`. The maximum range value is always `1`. `clampRatio` is a multiplier applied on the maximum value of scale's domain, allowing you to lower or increase the threshold for maximum opacity, it defaults to `1` (no changes). `scaleType` lets you choose what type of scale to use, either `linear` (default) or `log`.
+```javascript
+bubbleMap.setOpacityScale(0.3, 0.9, 'log'); // use a scale range of [0.3,1], a scale domain of [0, 90% of the distribution maximum value], and a logarithmic scale.
+```
+
 
 ## Styles
 

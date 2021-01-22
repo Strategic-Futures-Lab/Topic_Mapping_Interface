@@ -214,11 +214,11 @@ export default function(container = 'body', width = 800, height = 600){
     // public
 
     BubbleMap.render = function(dataset){
-        BubbleMap.toggleDefaultText();
+        BubbleMap._removeDefaultText();
         drawBubbleMap(dataset);
         return BubbleMap;
     };
-    BubbleMap.setClickCB = function(cb){
+    BubbleMap.setBubbleClick = function(cb){
         bubbleClickCB = cb;
         attachCallbacks();
         return BubbleMap;
@@ -237,7 +237,7 @@ export default function(container = 'body', width = 800, height = 600){
         setBubblesOpacity(distributionData, reset);
         return BubbleMap;
     };
-    BubbleMap.setOpacityRange = function(minValue = 0.2, clampRatio = 1, scaleType = 'linear'){
+    BubbleMap.setOpacityScale = function(minValue = 0.2, clampRatio = 1, scaleType = 'linear'){
         opacityMinV = minValue;
         opacityClampR = clampRatio;
         opacityScaleType = scaleType;

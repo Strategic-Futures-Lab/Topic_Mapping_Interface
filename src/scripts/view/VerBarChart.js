@@ -178,7 +178,7 @@ export default function(container='body', width=800, height=600){
         setBarTooltips();
         return VerBarChart;
     };
-    VerBarChart.setClickCB = function(cb){
+    VerBarChart.setBarClick = function(cb){
         barClickCB = cb;
         attachCallbacks();
         return VerBarChart;
@@ -191,7 +191,7 @@ export default function(container='body', width=800, height=600){
     // serie data:
     // [ {key:string,value:number}, ...]
     VerBarChart.render = function(serie){
-        VerBarChart.toggleDefaultText();
+        VerBarChart._removeDefaultText();
         render(serie);
         return VerBarChart;
     };

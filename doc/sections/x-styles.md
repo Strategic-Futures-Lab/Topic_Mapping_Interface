@@ -1,3 +1,4 @@
+
 ## Styles
 
 The modules' and page's styles are already predefined and set to work with the scripts rendering them. It is however possible to overwrite some of these styles individually inside a `main.css` file loaded by your HTML document.

@@ -1,3 +1,4 @@
+
 # Topic Mapping Interface - API doc
 
 The Topic Mapping Interface script and stylesheet bundles are located in [`app/dist`](../app/dist).
@@ -9,3 +10,9 @@ The script sets up `tMap`, the top level library object for interacting with the
 
 - [Page Layout Management](#page-manager)
 - [Data Management](#data-manager)
+- [Visualisation Modules](#visualisation-modules)
+    - [Bubble Topic Map](#bubble-topic-map)
+    - [Wordcloud](#worcloud)
+    - [Trend Chart](#trend-chart)
+    - [Bar Chart](#bar-chart)
+    - [Line Chart](#line-chart)

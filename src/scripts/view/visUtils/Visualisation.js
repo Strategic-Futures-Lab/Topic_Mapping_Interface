@@ -118,6 +118,12 @@ export default function(container = 'body', width = 800, height = 600, classed =
         .classed('title', true);
 
     VisObj._defaultText = null;
+    VisObj._removeDefaultText = ()=>{
+        if(VisObj._defaultText != null){
+            VisObj._defaultText.remove();
+            VisObj._defaultText = null;
+        }
+    };
 
     // public
 
@@ -142,7 +148,8 @@ export default function(container = 'body', width = 800, height = 600, classed =
         VisObj._resize();
         return VisObj;
     };
-    VisObj.toggleBorder = function(bool){
+    VisObj.toggleBorder = function(bool=null){
+        bool = bool == null ? VisObj._border == 0 : bool;
         VisObj._border = bool ? 1 : 0;
         VisObj._resize();
         return VisObj;
@@ -155,17 +162,14 @@ export default function(container = 'body', width = 800, height = 600, classed =
         VisObj._toggleTitle(t,pos);
         return VisObj;
     };
-    VisObj.toggleDefaultText = function(string = null, scale=null, blinking=false){
-        if(string == null && VisObj._defaultText != null){
-            VisObj._defaultText.remove();
-            VisObj._defaultText = null;
-        } else if(string != null){
+    VisObj.addDefaultText = function(string, scale=1, blinking=false){
+        if(string != null){
             if(VisObj._defaultText == null){
                 VisObj._defaultText = VisObj._svgTop.append('text')
                     .classed('defaultText', true);
             }
             VisObj._defaultText.classed('blinking', blinking)
-                .attr('transform', `translate(${VisObj._canvas.c},${VisObj._canvas.m})scale(${scale!=null?scale:1})`)
+                .attr('transform', `translate(${VisObj._canvas.c},${VisObj._canvas.m})scale(${scale})`)
                 .text(string);
         }
         return VisObj;
