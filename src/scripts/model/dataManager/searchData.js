@@ -267,7 +267,7 @@ export default function(Data){
      */
     Data.getFromSearch = function(){
         return {labels:Data.getLabelsFromSearch(),
-                topics:Data.getTopicIdsFromSearch(),
-                docs:Data.getDocIdsFromSearch()}
-    }
+            topics:Data.getTopicIdsFromSearch(),
+            docs:Data.getDocIdsFromSearch()};
+    };
 }
