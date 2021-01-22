@@ -1,0 +1,48 @@
+@import '../utils/colors.less';
+@import '../utils/fonts.less';
+@import '../utils/animations.less';
+
+svg.viz{
+    border: solid @clr-blk 1px;
+    font-family: @text-font;
+    background-color: @clr-wht;
+    text.defaultText{
+        text-anchor: middle;
+        font-size: 15px;
+        fill: @clr-blk;
+        font-family: @text-font;
+        opacity: 0.8;
+        &.blinking{
+            animation:blinkingText 2s infinite;
+        }
+    }
+    g.button{
+        text{
+            fill: @clr-blk;
+            font-family: @text-font;
+            transition: fill linear .3s;
+        }
+        rect{
+            fill: @clr-lgter-gry;
+            transition: fill linear .3s;
+        }
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity linear .3s;
+        &:hover{
+            text{
+                fill: @clr-wht;
+            }
+            rect{
+                fill: @clr-act;
+            }
+            opacity: 1;
+        }
+    }
+    text.title{
+        text-anchor: middle;
+        fill: @clr-gry;
+        font-family: @title-font;
+        font-weight: bold;
+    }
+}

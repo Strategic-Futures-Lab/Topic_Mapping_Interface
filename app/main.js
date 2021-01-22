@@ -16,7 +16,50 @@ let PM = tMap.PageManager('div#app', 'E', '4-1-1-1-1-a', 'div#header', 'div#foot
 
 let DM = tMap.DataManager();
 
+let mainMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h)
+    .setTooltip(d=>d.size)
+    .setClickCB(selectMainTopic)
+    .toggleDefaultText('Loading...', 2, true)
+    .setMargin([40,10,10,10])
+    .toggleButton('TR', 'Test', ()=>{console.log('button test')})
+    .toggleTitle('Topic Map');
+let wordcloud = tMap.WordCloud(PM.panel3.c, PM.panel3.w, PM.panel3.h)
+    .toggleDefaultText('Click on a bubble to see more labels.')
+    .setMargin([40,10,10,10])
+    .toggleTitle('Topic Labels');
+let subMap = tMap.BubbleMap(PM.panel2.c, PM.panel2.w, PM.panel2.h)
+    .setTooltip(d=>d.size)
+    .setClickCB(selectSubTopic)
+    .toggleDefaultText('Click on a bubble to see more topics.')
+    .setMargin([40,10,10,10])
+    .toggleButton('TR', 'Test', ()=>{console.log('button test')})
+    .toggleTitle('Topic Map');
+
+function selectMainTopic(e,d){
+    let mainTopic = d.topicId;
+    mainMap.selectBubble(mainTopic);
+    wordcloud.render(d.labels);
+    newSubMap(mainTopic);
+}
+
+function newSubMap(mainTopic){
+    let subTopic = null;
+    subMap.render(DM.getSubMap(mainTopic));
+}
+
+function selectSubTopic(e,d){
+    let subTopic = d.topicId;
+    subMap.selectBubble(subTopic);
+    wordcloud.render(d.labels);
+}
+
+PM.watch({
+    panel1: mainMap,
+    panel2: subMap,
+    panel3: wordcloud
+})
+
 DM.loadAndProcessDataFromUrls(urls).then(()=>{
     console.log(DM.data);
-    console.log(DM.getDistributionLabels(t=>`field ${t}`));
+    mainMap.render(DM.data.mainMap)
 })
