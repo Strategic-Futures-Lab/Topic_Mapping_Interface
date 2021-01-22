@@ -105,7 +105,7 @@ export default function(container='body', layout='A', controls='',
             let s = buildPage();
             for(let [area, module] of Object.entries(modules)){
                 if('setSize' in module){
-                    module.setSize(s[area].width, s[area].height);
+                    module.setSize(s[area].w, s[area].h);
                 } else {
                     console.log(`${area} missing setSize()`);
                 }
