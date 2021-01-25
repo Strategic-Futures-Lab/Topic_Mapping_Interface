@@ -74,7 +74,7 @@ bubbleMap.selectBubble(['2','3','8','13']); // bubbles for topics '2','3','8', a
 
 #### `BubbleMap.setBubblesOpacity(distributionData [,reset])
 
-Given a distribution (list of topic ids and weights), will adjust the opacity of bubbles to reflect the weights. `reset` is an optional parameter that lets you reset all the opacities to `1` (`true`), it defaults to `false`.
+Given a distribution (list of topic ids/keys and weights/values), will adjust the opacity of bubbles to reflect the weights. `reset` is an optional parameter that lets you reset all the opacities to `1` (`true`), it defaults to `false`.
 ```javascript
 bubbleMap.setBubblesOpacity(DM.getMainTopicsDistrib('A')); // sets the opacity of all bubbles using the distribution of field 'A'
 ```
