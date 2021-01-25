@@ -44,9 +44,9 @@ SM.state('mainTopic'); // -> returns null
 
 The State Managers includes features allowing you to build and parse URLs with the states' values embedded in them.
 
-#### `StateManager.buildURL()`
+#### `StateManager.buildURL([customBase])`
 
-Returns a URL string with the states' values embedded.
+Returns a URL string with the states' values embedded. `customBase` is an optional string letting you define your own domain and path.
 ```javascript
 // page is at domain.com/page.html
 SM.state('mainTopic', '20');
@@ -54,6 +54,9 @@ SM.state('search', 'label1 label2');
 SM.state('doc', '34');
 let url = SM.buildURL();
 console.log(url); // -> https://domain.com/page.html?t=20&d=34&s=label1%20label2 
+
+let url = SM.buildURL('domain.com/otherPage.html');
+console.log(url); // -> https://domain.com/otherPage.html?t=20&d=34&s=label1%20label2 
 ```
 
 #### `StateManager.parseURL()`

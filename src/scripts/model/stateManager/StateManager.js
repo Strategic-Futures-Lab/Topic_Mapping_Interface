@@ -32,9 +32,10 @@ export default function(){
         }
     };
 
-    StateManager.buildURL = function(){
+    StateManager.buildURL = function(customBase = null){
         let origin = window.location.origin,
             path = window.location.pathname;
+        let base = customBase == null ? `${origin}${path}` : customBase;
         let params = [];
 
         for(let k of Object.keys(StateManager.states)){
@@ -45,7 +46,7 @@ export default function(){
         }
 
         let param = params.length > 0 ? `?${params.join('&')}` : '';
-        return `${origin}${path}${param}`;
+        return `${base}${param}`;
     };
 
     StateManager.parseURL = function(){
