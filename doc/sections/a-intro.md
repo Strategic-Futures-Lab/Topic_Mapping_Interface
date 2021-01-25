@@ -10,6 +10,7 @@ The script sets up `tMap`, the top level library object for interacting with the
 
 - [Page Layout Management](#page-manager)
 - [Data Management](#data-manager)
+- [State Management](#state-manager)
 - [Visualisation Modules](#visualisation-modules)
     - [Bubble Topic Map](#bubble-topic-map)
     - [Wordcloud](#worcloud)
