@@ -36,7 +36,7 @@ export default function(Data){
             }
             v = v[0];
             return {
-                topicId: d.topicId,
+                key: d.topicId,
                 value: v
             };
         });
@@ -59,7 +59,7 @@ export default function(Data){
             }
             v = v[0];
             return {
-                topicId: d.topicId,
+                key: d.topicId,
                 value: v
             };
         });
@@ -81,7 +81,7 @@ export default function(Data){
                 }
                 v = v[0];
                 return {
-                    topicId: d.topicId,
+                    key: d.topicId,
                     value: v
                 };
             });

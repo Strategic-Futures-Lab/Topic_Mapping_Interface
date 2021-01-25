@@ -201,7 +201,7 @@ export default function(container = 'body', width = 800, height = 600){
         bubbleGroup.selectAll('g.bubble')
             .style('opacity', d=>{
                 if(reset){return 1;}
-                return opacityScale(distributionData.filter(e=>{return e.topicId == d.topicId;})[0].value);
+                return opacityScale(distributionData.filter(e=>{return e.key == d.topicId;})[0].value);
             });
     }
 
