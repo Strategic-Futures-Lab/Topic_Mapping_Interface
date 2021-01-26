@@ -16,6 +16,8 @@ let PM = tMap.PageManager('div#app', 'E', '4-1-1-1-1-a', 'div#header', 'div#foot
 
 let DM = tMap.DataManager();
 
+let SM = tMap.StateManager();
+
 let mainMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h)
     .setTooltip(d=>d.size)
     .setTooltipChart((t,d)=>{
@@ -45,28 +47,46 @@ let subMap = tMap.BubbleMap(PM.panel2.c, PM.panel2.w, PM.panel2.h)
     .toggleButton('TR', 'Test', ()=>{console.log('button test')})
     .toggleTitle('Topic Map');
 
+let sumByMonth = DM.timeFormatConverter('%d/%m/%y', '%Y-%m'),
+    sumByQuarter = DM.timeFormatConverter('%d/%m/%y', '%Y-%q'),
+    sumByYear = DM.timeFormatConverter('%d/%m/%y', '%Y'),
+    trendsRange = ['%d/%m/%y', '01/01/11', '01/01/20'];
+let trend = tMap.TrendChart(PM.panel4.c, PM.panel4.w, PM.panel4.h)
+    .setDateTicks('%Y')
+    .setValueTicks(10, '.0f')
+    .setTooltip(d=>`${d.value} publications`)
+    .setTransition(500, 100)
+    .addDefaultText('Click on a bubble to see the topic trends.')
+    .setMargin([40,20,30,10])
+    .toggleButton('TR', 'Test', ()=>{console.log('button test')})
+    .toggleTitle('Topic Trend');
+
 function selectMainTopic(e,d){
-    let mainTopic = d.topicId;
-    mainMap.selectBubble(mainTopic);
+    SM.state('mainTopic', d.topicId);
+    mainMap.selectBubble(SM.state('mainTopic'));
     wordcloud.render(d.labels);
-    newSubMap(mainTopic);
+    newSubMap();
+    trend.render([DM.getMainTopicTrend(SM.state('mainTopic'), sumByYear, trendsRange)])
 }
 
-function newSubMap(mainTopic){
-    let subTopic = null;
-    subMap.render(DM.getSubMap(mainTopic));
+function newSubMap(){
+    SM.state('subTopic', null);
+    subMap.render(DM.getSubMap(SM.state('mainTopic')));
 }
 
 function selectSubTopic(e,d){
-    let subTopic = d.topicId;
-    subMap.selectBubble(subTopic);
+    SM.state('subTopic', d.topicId);
+    subMap.selectBubble(SM.state('subTopic'));
     wordcloud.render(d.labels);
+    trend.render([DM.getMainTopicTrend(SM.state('mainTopic'), sumByYear, trendsRange),
+                  DM.getSubTopicTrend(SM.state('subTopic'), sumByYear, trendsRange)])
 }
 
 PM.watch({
     panel1: mainMap,
     panel2: subMap,
-    panel3: wordcloud
+    panel3: wordcloud,
+    panel4: trend
 })
 
 DM.loadAndProcessDataFromUrls(urls).then(()=>{

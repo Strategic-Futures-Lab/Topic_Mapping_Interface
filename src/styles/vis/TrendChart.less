@@ -1,0 +1,39 @@
+@import '../utils/colors.less';
+@import '../utils/fonts.less';
+@import '../utils/tooltip.less';
+
+svg.trendchart{
+    g.chart{
+        g.bars{
+            g.barGroup{
+                rect.bar{
+                    fill: @clr-lgter-gry;
+                    stroke: @clr-lgt-gry;
+                    stroke-width: 2px;
+                    opacity: 0.9;
+                    outline: none;
+                    &.highlight{
+                        stroke: @clr-gry;
+                        stroke-width: 2px;
+                        opacity: 1;
+                    }
+                    &.selected{
+                        stroke: @clr-drk-gry;
+                        stroke-width: 2px;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+        g.lines{
+            path.line{
+                fill: none;
+                stroke: @clr-prm;
+                stroke-width: 2px;
+            }
+        }
+        g.scale{
+            font-family: @text-font;
+        }
+    }
+}

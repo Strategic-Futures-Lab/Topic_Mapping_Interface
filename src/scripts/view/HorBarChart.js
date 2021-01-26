@@ -71,6 +71,9 @@ export default function(container='body', width=800, height=600){
             .attr('height', ()=>yScale.bandwidth())
             .delay((d,i)=>{return i*delay;})
             .attr('width', d=>xScale(d.value));
+
+        attachCallbacks();
+        setBarTooltips();
     }
 
     function attachCallbacks(){
@@ -157,7 +160,7 @@ export default function(container='body', width=800, height=600){
         tickFormat = format;
         return HorBarChart;
     };
-    HorBarChart.setMaxValue = function(v){
+    HorBarChart.setMaxValue = function(v = -1){
         maxXValue = v;
         return HorBarChart;
     };

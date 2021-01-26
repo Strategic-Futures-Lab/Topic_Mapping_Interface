@@ -41,14 +41,14 @@ Refer to [D3's number format module](https://github.com/d3/d3-format) for more d
 
 #### `BarChart.setMaxValue(value)`
 
-Sets the chart's maximum value on the continuous axis. Since, the continuous scale is adjust at every render, this allows you to keep the same scale (`0, maxValue`).
+Sets the chart's maximum value on the continuous axis. Since the continuous scale is adjusted at every render, this allows you to keep the same scale (`0, maxValue`). The default maximum value is `-1`, which is interpreted as no maximum, i.e. use the next render maximum. 
 ```javascript
 barchart.setMaxValue(1); // -> the maximum value will always be 1, i.e. 100% if formated with '.0%'
 ```
 
 #### `BarChart.setTransition([duration [, delay]])`
 
-Sets the duration and delay (per bar) value for transition animation on the bar chart. These values default to `100`ms for `duration` and `50`ms for delay. You can disable transitions by setting the duration value to `0`.
+Sets the duration and delay (per bar) values for transition animation on the bar chart. These values default to `100`ms for `duration` and `50`ms for delay. You can disable transitions by setting the duration value to `0`.
 ```javascript
 barchart.setTransition(200, 100); // -> sets the transitions to 200ms duration and 100ms delay (per bar)
 ```

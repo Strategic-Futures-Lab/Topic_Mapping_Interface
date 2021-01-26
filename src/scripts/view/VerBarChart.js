@@ -73,6 +73,9 @@ export default function(container='body', width=800, height=600){
             .delay((d,i)=>{return i*delay;})
             .attr('y', d=>yScale(d.value))
             .attr('height', d=>VerBarChart._canvas.iH-yScale(d.value));
+
+        attachCallbacks();
+        setBarTooltips();
     }
 
     function attachCallbacks(){
@@ -159,7 +162,7 @@ export default function(container='body', width=800, height=600){
         tickFormat = format;
         return VerBarChart;
     };
-    VerBarChart.setMaxValue = function(v){
+    VerBarChart.setMaxValue = function(v = -1){
         maxYValue = v;
         return VerBarChart;
     };
