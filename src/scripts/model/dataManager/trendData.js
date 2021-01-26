@@ -6,6 +6,7 @@ import {sort as D3Sort,
     rollup as D3Rollup} from 'd3-array';
 
 import has from 'lodash-es/has';
+import round from 'lodash-es/round';
 
 export default function(Data){
 
@@ -53,8 +54,8 @@ export default function(Data){
      * sumBy: date=>dateInNewFormat
      */
     function sumDates(dateDistrib, sumBy){
-        return D3Sort(Array.from(D3Rollup(dateDistrib, d=>D3Sum(d, d2=>d2.value), d=>sumBy(d.date))), d=>d.key)
-            .map(d=>{return {date:d.key,value:d.value};});
+        return D3Sort(Array.from(D3Rollup(dateDistrib, d=>round(D3Sum(d, d2=>d2.value),4), d=>sumBy(d.date))), d=>d[0])
+            .map(d=>{return {date:d[0],value:d[1]};});
     }
 
     /**
