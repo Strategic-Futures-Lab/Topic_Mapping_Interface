@@ -22,7 +22,7 @@ let mainMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h)
     .setTooltip(d=>d.size)
     .setTooltipChart((t,d)=>{
         tMap.HorizontalBarChart(t, 200, 100)
-            .setTicks(3, '.0%')
+            .setTicks(3)
             .render(DM.getMainTopicDistribEntryNorm(d.topicId))
     })
     .setBubbleClick(selectMainTopic)

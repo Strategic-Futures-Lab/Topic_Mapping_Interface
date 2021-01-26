@@ -1,0 +1,25 @@
+@import '../utils/colors.less';
+@import '../utils/fonts.less';
+@import '../utils/tooltip.less';
+
+svg.linechart{
+    g.chart{
+        path.line{
+            fill: none;
+            stroke: @clr-drk-gry;
+            stroke-width: 2px;
+            &.smoothed{
+                stroke: @clr-prm;
+            }
+        }
+        g.dots{
+            circle.dot{
+                fill: @clr-drk-gry;
+                stroke: none;
+                &.highlight{
+                    fill: @clr-prm;
+                }
+            }
+        }
+    }
+}

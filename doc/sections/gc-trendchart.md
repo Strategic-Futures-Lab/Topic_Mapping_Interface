@@ -43,6 +43,7 @@ Allows you to set the format of tick marks on the chart's category axis, i.e. th
 trendchart.setDateTicks('%Y-%m'); // -> expecting the date in the data to be like '2013-07', and will have the ticks as such
 trendchart.setDateTicks('%Y-%m', '%b. %Y'); // -> expecting the date in the data to be like '2013-07', and will have the ticks like 'Jul. 2013'
 ```
+Refer to [D3's time format module](https://github.com/d3/d3-time-format) for more details on time formats.
 
 #### `TrendChart.setMaxValue(value)`
 
