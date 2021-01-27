@@ -1,4 +1,4 @@
-import Visualisation from './visUtils/Visualisation';
+import Visualisation from './utils/Visualisation';
 
 import {timeParse as D3TimeParse,
     timeFormat as D3TimeFormat} from 'd3-time-format';
@@ -13,7 +13,7 @@ import {line as D3Line,
     curveBasis as D3CurveBasis} from 'd3-shape';
 import Tippy from 'tippy.js';
 
-import '../../styles/vis/TrendChart.less';
+import '../../../styles/visualisations/TrendChart.less';
 
 export default function(container='body', width=800, height=600){
 

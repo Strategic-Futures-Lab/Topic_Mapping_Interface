@@ -1,10 +1,10 @@
-import Visualisation from './visUtils/Visualisation';
+import Visualisation from './utils/Visualisation';
 
 import {scaleLinear as D3ScaleLinear} from 'd3-scale';
 import {extent as D3Extent} from 'd3-array';
 import D3Cloud from 'd3-cloud';
 
-import '../../styles/vis/WordCloud.less';
+import '../../../styles/visualisations/WordCloud.less';
 
 export default function(container = 'body', width = 800, height = 600){
 

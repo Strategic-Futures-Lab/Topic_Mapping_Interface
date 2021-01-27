@@ -1,7 +1,7 @@
 import Canvas from './canvas';
 import {select as D3Select} from 'd3-selection';
 
-import '../../../styles/vis/visualisation.less';
+import '../../../../styles/visualisations/visualisation.less';
 
 export default function(container = 'body', width = 800, height = 600, classed = ''){
 

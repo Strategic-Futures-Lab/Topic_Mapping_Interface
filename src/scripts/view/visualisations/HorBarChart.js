@@ -1,4 +1,4 @@
-import Visualisation from './visUtils/Visualisation';
+import Visualisation from './utils/Visualisation';
 
 import {select as D3Select} from 'd3-selection';
 import 'd3-transition';
@@ -9,7 +9,7 @@ import {scaleLinear as D3ScaleLinear,
 import {max as D3Max} from 'd3-array';
 import Tippy from 'tippy.js';
 
-import '../../styles/vis/BarChart.less';
+import '../../../styles/visualisations/BarChart.less';
 
 export default function(container='body', width=800, height=600){
 

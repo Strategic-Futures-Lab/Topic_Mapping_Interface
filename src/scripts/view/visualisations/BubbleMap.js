@@ -1,4 +1,4 @@
-import Visualisation from './visUtils/Visualisation';
+import Visualisation from './utils/Visualisation';
 
 import {select as D3Select} from 'd3-selection';
 import {scaleLinear as D3ScaleLinear,
@@ -6,7 +6,7 @@ import {scaleLinear as D3ScaleLinear,
 import {min as D3Min, max as D3Max} from 'd3-array';
 import Tippy from 'tippy.js';
 
-import '../../styles/vis/BubbleMap.less';
+import '../../../styles/visualisations/BubbleMap.less';
 
 export default function(container = 'body', width = 800, height = 600){
 

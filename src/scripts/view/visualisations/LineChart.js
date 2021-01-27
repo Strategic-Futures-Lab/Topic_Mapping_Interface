@@ -1,4 +1,4 @@
-import Visualisation from './visUtils/Visualisation';
+import Visualisation from './utils/Visualisation';
 
 import {select as D3Select} from 'd3-selection';
 import {scaleLinear as D3ScaleLinear} from 'd3-scale';
@@ -10,7 +10,7 @@ import {line as D3Line,
 import {extent as D3Extent} from 'd3-array';
 import Tippy from 'tippy.js';
 
-import '../../styles/vis/LineChart.less';
+import '../../../styles/visualisations/LineChart.less';
 
 export default function(container='body', width=800, height=600){
 
