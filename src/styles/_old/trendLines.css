@@ -1,9 +1,0 @@
-svg.trendLines{
-    border: solid #333333 1px;
-}
-
-svg.trendLines > g >
-path.line {
-    fill: none;
-    stroke: #4c4c4c;
-}
