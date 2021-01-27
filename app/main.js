@@ -61,12 +61,32 @@ let trend = tMap.TrendChart(PM.panel4.c, PM.panel4.w, PM.panel4.h)
     .toggleButton('TR', 'Test', ()=>{console.log('button test')})
     .toggleTitle('Topic Trend');
 
+let tableTooltip = d => {
+    let fields = [];
+    fields.push(`Word Count: ${d.docData.wordCount}`);
+    fields.push(`Relevance: ${Math.floor(d.weight*100)}%`);
+    return fields.join(' - ');
+}
+let table = tMap.DocTable(PM.panel5.c, PM.panel5.w, PM.panel5.h)
+    .addDefaultText('Click on a bubble to see the topic top documents.',1,true)
+    .toggleTitle('Top Documents')
+    .setColumnsInfo([
+        {title:'Title',accessor:d=>d.docData.title,tooltip:tableTooltip},
+        {title:'Authors',accessor:d=>d.docData.authors,tooltip:tableTooltip},
+        {title:'Date',accessor:d=>d.docData.date,tooltip:tableTooltip},
+        {title:'Money',accessor:d=>d.docData.money,tooltip:tableTooltip},
+    ])
+    .nRowsSelection([10,20,50],(e,d)=>{table.render(DM.getTableRows(d))},'N Docs');
+
+
 function selectMainTopic(e,d){
     SM.state('mainTopic', d.topicId);
     mainMap.selectBubble(SM.state('mainTopic'));
     wordcloud.render(d.labels);
     newSubMap();
-    trend.render([DM.getMainTopicTrend(SM.state('mainTopic'), sumByYear, trendsRange)])
+    trend.render([DM.getMainTopicTrend(SM.state('mainTopic'), sumByYear, trendsRange)]);
+    DM.setTableRowsMainTopic(SM.state('mainTopic'));
+    table.render(DM.getTableRows(50));
 }
 
 function newSubMap(){
@@ -79,14 +99,17 @@ function selectSubTopic(e,d){
     subMap.selectBubble(SM.state('subTopic'));
     wordcloud.render(d.labels);
     trend.render([DM.getMainTopicTrend(SM.state('mainTopic'), sumByYear, trendsRange),
-                  DM.getSubTopicTrend(SM.state('subTopic'), sumByYear, trendsRange)])
+                  DM.getSubTopicTrend(SM.state('subTopic'), sumByYear, trendsRange)]);
+    DM.setTableRowsSubTopic(SM.state('subTopic'));
+    table.render(DM.getTableRows(50));
 }
 
 PM.watch({
     panel1: mainMap,
     panel2: subMap,
     panel3: wordcloud,
-    panel4: trend
+    panel4: trend,
+    panel5: table
 })
 
 DM.loadAndProcessDataFromUrls(urls).then(()=>{
