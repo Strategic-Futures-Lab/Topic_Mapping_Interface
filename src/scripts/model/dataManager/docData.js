@@ -34,7 +34,7 @@ export default function(Data){
         if(!has(Data.data, 'subModel')){
             throw new Error('Data Error: subModel was not loaded');
         }
-        let t = getTopic(Data.data.subTopicModel, topicId);
+        let t = getTopic(Data.data.subModel, topicId);
         Data.data.tableRows = t===null ? [] : t.topDocs;
         return Data;
     };

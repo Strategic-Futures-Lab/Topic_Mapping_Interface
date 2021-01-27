@@ -117,7 +117,7 @@ DM.setTableRowsMainTopic('4');
 console.log(DM.data.tableRows); // -> the list of top documents for topic '4' in the main model
 ``` 
 
-#### `DataManager.setTableRowsMainTopic(topicId)`
+#### `DataManager.setTableRowsSubTopic(topicId)`
 
 Same as above but with topics from the sub model.
 ```javascript
