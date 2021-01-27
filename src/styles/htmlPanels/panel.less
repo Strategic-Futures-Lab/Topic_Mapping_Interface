@@ -1,0 +1,26 @@
+@import '../utils/fonts.less';
+@import '../utils/colors.less';
+@import '../utils/animations.less';
+
+div.htmlpanel{
+    border: solid 1px @clr-blk;
+    overflow-y: scroll;
+    p.defaultText{
+        position: relative;
+        margin: 0;
+        text-align: center;
+        color: @clr-gry;
+        font-family: @text-font;
+        &.blinking{
+            animation:blinkingText 2s infinite;
+        }
+    }
+    p.title{
+        text-align: center;
+        width: 100%;
+        margin: 0px;
+        color: @clr-gry;
+        font-family: @title-font;
+        font-weight: bold;
+    }
+}
