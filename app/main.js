@@ -71,13 +71,17 @@ let table = tMap.DocTable(PM.panel5.c, PM.panel5.w, PM.panel5.h)
     .addDefaultText('Click on a bubble to see the topic top documents.',1,true)
     .toggleTitle('Top Documents')
     .setColumnsInfo([
-        {title:'Title',accessor:d=>d.docData.title,tooltip:tableTooltip},
-        {title:'Authors',accessor:d=>d.docData.authors,tooltip:tableTooltip},
-        {title:'Date',accessor:d=>d.docData.date,tooltip:tableTooltip},
-        {title:'Money',accessor:d=>d.docData.money,tooltip:tableTooltip},
+        {title:'Title',accessor:d=>d.docData.title,tooltip:tableTooltip,click:selectDoc},
+        {title:'Authors',accessor:d=>d.docData.authors,tooltip:tableTooltip,click:selectDoc},
+        {title:'Date',accessor:d=>d.docData.date,tooltip:tableTooltip,click:selectDoc},
+        {title:'Money',accessor:d=>d.docData.money,tooltip:tableTooltip,click:selectDoc},
     ])
     .nRowsSelection([10,20,50],(e,d)=>{table.render(DM.getTableRows(d))},'N Docs');
 
+// let docView = tMap.DocViewer(PM.panel5.c,PM.panel5.w,PM.panel5.h)
+//     .addDefaultText('Click on a row to see the documents.',1,true)
+//     .toggleTitle('Document')
+//     .setFields(['title','authors',['university','institution',d=>`uni of ${d}`],'abstract','money'])
 
 function selectMainTopic(e,d){
     SM.state('mainTopic', d.topicId);
@@ -102,6 +106,10 @@ function selectSubTopic(e,d){
                   DM.getSubTopicTrend(SM.state('subTopic'), sumByYear, trendsRange)]);
     DM.setTableRowsSubTopic(SM.state('subTopic'));
     table.render(DM.getTableRows(50));
+}
+
+function selectDoc(e,d){
+    // docView.render(d.docData);
 }
 
 PM.watch({
