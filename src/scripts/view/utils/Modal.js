@@ -5,7 +5,7 @@ import '../../../styles/utils/modal.less';
 
 export default function(container='body', actDetails=[]){
 
-    let Modal = {}
+    let Modal = {};
 
     // private
 
@@ -17,7 +17,7 @@ export default function(container='body', actDetails=[]){
 
     let modalBack = D3Select(container).append('div')
         .classed('modalBack', true)
-        .on('click', ()=>{Modal.toggleModal(false)});
+        .on('click', ()=>{Modal.toggleModal(false);});
     let modal = modalBack.append('div')
         .classed('modal', true)
         .on('click', e=>{e.stopPropagation();});
@@ -53,7 +53,7 @@ export default function(container='body', actDetails=[]){
                     D3Select(this).classed(d.class, true);
                 }
             });
-    };
+    }
 
     // public
 
@@ -101,4 +101,6 @@ export default function(container='body', actDetails=[]){
         modalBody.selectAll('*').remove();
         return Modal;
     };
+
+    return Modal;
 }

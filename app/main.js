@@ -12,7 +12,7 @@ const urls = {
     subLL : dataDirectory + 'subLL.json'
 }
 
-let PM = tMap.PageManager('div#app', 'E', '4-1-1-1-1-a', 'div#header', 'div#footer', 700, 700);
+let PM = tMap.PageManager('div#app', 'E', '3-2-2-2-b', 'div#header', 'div#footer', 700, 700);
 
 let DM = tMap.DataManager();
 
@@ -118,6 +118,12 @@ function selectSubTopic(e,d){
 function selectDoc(e,d){
     // docView.render(d.docData);
 }
+
+let menu = tMap.Menu(PM.control3.c,PM.control3.h)
+    .addShare(()=>{
+        return SM.buildURL();
+    })
+    .addScreenshot('#app')
 
 PM.watch({
     panel1: mainMap,
