@@ -4,6 +4,7 @@ import docData from './docData';
 import distribData from './distribData';
 import trendData from './trendData';
 import searchData from './searchData';
+import statData from './statData';
 
 export default function(){
 
@@ -28,6 +29,8 @@ export default function(){
     trendData(Data);
     // Add search features
     searchData(Data);
+    // Add stat features
+    statData(Data);
 
     return Data;
 

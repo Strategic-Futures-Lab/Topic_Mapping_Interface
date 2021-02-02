@@ -16,6 +16,7 @@ You can then access the data management features from `DM`.
 - [Distribution features](#distribution-features)
 - [Trend features](#trend-features)
 - [Search features](#search-features)
+- [Statistics features](#statistics-features)
 
 ### Processing Data
 
@@ -341,4 +342,50 @@ console.log(topics.mainTopicIds); // -> the list of main topic ids containing 'l
 console.log(topics.subTopicIds); // -> the list of sub topic ids containing 'label1' and 'label2', or 'label3'
 console.log(docIds); // -> the list of document ids containing 'label1' and 'label2', or 'label3'
 console.log(labels); // -> [label1, label2, label3]
+```
+
+### Statistics Features
+
+These features let you access the data related to models' statistics.
+
+#### `DataManager.getMainModelMetadata()`
+
+Returns the main model's metadata, e.g. numberof documents in total, number of documents unused for being too short, stop phrases and stop words, etc. . Will throw an error if the main model file was not loaded, or if the main model does not have metadata.
+```javascript
+console.log(DM.getMainModelMetadata()); // -> prints the main model metadata.
+```
+
+#### `DataManager.getSubModelMetadata()`
+
+Same as above for the sub model metadata.
+```javascript
+console.log(DM.getSubModelMetadata()); // -> prints the sub model metadata.
+```
+
+#### `DataManager.getFinalMainLL()`
+
+Returns the final log-likehood information for the main model, comprising of the total number of iterations (`nIter`) and the final log-likelihood value (`LL`). The function will throw an error if the main log-likelihood file was not loaded, of the total number of iteration or final log-likehood value are missing.  
+```javascript
+console.log(DM.getFinalMainLL()); // -> prints the main model log-likehood information, e.g. {nIter:2000,LL:-7.6906}.
+```
+
+#### `DataManager.getFinalSubLL()`
+
+Same as above for the sub model log-likelihood.
+```javascript
+console.log(DM.getFinalSubLL()); // -> prints the sub model log-likehood information, e.g. {nIter:5000,LL:-4.897}.
+```
+
+#### `DataManager.getMainLLData()`
+
+Returns the history data of the main model's log-likelihood, i.e. the log-likelihood values accross iterations. The data returned is a list, with each having the iteration number (`iter`) and the log-likelihood value (`LL`). The function will throw an error if the main model's log-likelihood file was not loaded, or if the file does not have entries.
+```javascript
+console.log(DM.getMainLLData()); // -> prints the main model log-likehood data, e.g. [{iter:10,LL:-13.987},{iter:20,LL:-12.5324},...].
+```
+
+#### `DataManager.getSubLLData()`
+
+Same as above for the sub model log-likelihood.
+```javascript
+console.log(DM.getSubLLData()); // -> prints the main model log-likehood data, e.g. [{iter:10,LL:-18.4387},{iter:20,LL:-15.0043},...].
 ```
