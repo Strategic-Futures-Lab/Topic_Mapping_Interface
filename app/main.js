@@ -67,6 +67,12 @@ let tableTooltip = d => {
     fields.push(`Relevance: ${Math.floor(d.weight*100)}%`);
     return fields.join(' - ');
 }
+let tableTooltipChart = (t,d)=>{
+    let v = parseFloat(d.docData.money)
+    tMap.VerticalBarChart(t, 200, 100)
+        .setTicks(3, '.0%')
+        .render([{key:'A',value:v}])
+}
 let table = tMap.DocTable(PM.panel5.c, PM.panel5.w, PM.panel5.h)
     .addDefaultText('Click on a bubble to see the topic top documents.',1,true)
     .toggleTitle('Top Documents')
@@ -74,9 +80,10 @@ let table = tMap.DocTable(PM.panel5.c, PM.panel5.w, PM.panel5.h)
         {title:'Title',accessor:d=>d.docData.title,tooltip:tableTooltip,click:selectDoc},
         {title:'Authors',accessor:d=>d.docData.authors,tooltip:tableTooltip,click:selectDoc},
         {title:'Date',accessor:d=>d.docData.date,tooltip:tableTooltip,click:selectDoc},
-        {title:'Money',accessor:d=>d.docData.money,tooltip:tableTooltip,click:selectDoc},
+        {title:'Money',accessor:d=>d.docData.money,tooltip:tableTooltip,tooltipChart:tableTooltipChart,click:selectDoc},
     ])
-    .nRowsSelection([10,20,50],(e,d)=>{table.render(DM.getTableRows(d))},'N Docs');
+    .rowsFilter([20,60,90],(e,d)=>{table.render(DM.getTableRows(50, d2=>Math.floor(d2.weight*100)>=d),d)},'Min Relevance')
+    // .rowsFilter([10,20,50],(e,d)=>{table.render(DM.getTableRows(d),d)},'N Docs');
 
 // let docView = tMap.DocViewer(PM.panel5.c,PM.panel5.w,PM.panel5.h)
 //     .addDefaultText('Click on a row to see the documents.',1,true)

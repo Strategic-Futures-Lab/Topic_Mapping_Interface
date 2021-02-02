@@ -16,16 +16,16 @@ export default function(container='body', width=800, height=600){
 
     let columnsInfo = [];
 
-    let nRowsSelectionArray = [],
-        nRowsSelectionCB = ()=>{},
-        nRowsText = '';
+    let rowsFilterArray = [],
+        rowsFilterCB = ()=>{},
+        rowsFilterText = '';
 
-    let cellTooltips = [];
+    let cellsTooltips = [];
 
     let docTable = DocTable._wrapper.append('div')
         .classed('table', true);
-    let nRowsSelection = docTable.append('span')
-        .classed('nRowsSelect', true);
+    let rowsFilter = docTable.append('span')
+        .classed('rowsFilter', true);
     let table = docTable.append('table'),
         thead = table.append('thead'),
         tbody = table.append('tbody'),
@@ -36,7 +36,8 @@ export default function(container='body', width=800, height=600){
             return typeof value === 'undefined' ? def : value;
         };
         let title = defaultValue(c.title, ''),
-            tooltip = defaultValue(c.tooltip, ()=>{}),
+            tooltip = defaultValue(c.tooltip, null),
+            tooltipChart = defaultValue(c.tooltipChart, null),
             accessor = defaultValue(c.accessor, ()=>{}),
             mouseover = defaultValue(c.mouseover, ()=>{}),
             mouseout = defaultValue(c.mouseout, ()=>{}),
@@ -44,13 +45,13 @@ export default function(container='body', width=800, height=600){
             align = defaultValue(c.align, 'left'),
             decoration = defaultValue(c.decoration, 'none'),
             cursor = defaultValue(c.cursor, 'default');
-        columnsInfo.push({title, tooltip, accessor, mouseover, mouseout,
+        columnsInfo.push({title, tooltip, tooltipChart, accessor, mouseover, mouseout,
             click, align, decoration, cursor});
     }
 
-    function renderTable(dataset){
+    function renderTable(dataset, filter=null){
         renderDataRows(dataset);
-        renderNRowsSelection(dataset.length);
+        renderRowsFilter(filter, dataset.length);
         renderTitleRow();
     }
 
@@ -67,7 +68,8 @@ export default function(container='body', width=800, height=600){
     }
 
     function renderDataRows(dataset){
-        cellTooltips.forEach(t=>t.destroy());
+        cellsTooltips.forEach(t=>t.destroy());
+        cellsTooltips = [];
 
         let rows = tbody.selectAll('tr')
             .data(dataset);
@@ -84,48 +86,77 @@ export default function(container='body', width=800, height=600){
             .data(columnsInfo);
         cells.exit().remove();
         cells.enter().append('td');
-        cells = cells = row.selectAll('td')
+        cells = row.selectAll('td')
             .html(d=>d.accessor(rowData))
             .on('click', (e,d)=>d.click(e,rowData))
             .on('mouseover', (e,d)=>d.mouseover(e,rowData))
             .on('mouseout', (e,d)=>d.mouseout(e,rowData))
-            .attr('data-tippy-content', d=>d.tooltip(rowData))
-            .call(styleCell);
-        
-        Tippy(cells.nodes(),{
-            theme:'dark',
-            duration: [500, 0],
-            allowHTML: true
-        }).forEach(t=>cellTooltips.push(t));
+            .call(styleCell)
+            .call(attachCellCallback, rowData);
     }
 
-    function styleRow(row){
-        row.style('height', minRowHeight+'px')
+    function styleRow(rows){
+        rows.style('height', minRowHeight+'px')
             .style('font-size', Math.max((minRowHeight/4.5),11)+'px');
 
     }
 
-    function styleCell(cell, isHeader=false){
-        cell.style('cursor', d=>{return isHeader ? 'default' : d.cursor;})
+    function styleCell(cells, isHeader=false){
+        cells.style('cursor', d=>{return isHeader ? 'default' : d.cursor;})
             .style('text-align', d=>{return isHeader ? 'center': d.align;})
             .style('text-decoration', d=>{return isHeader ? 'none' : d.decoration;});
     }
 
-    function renderNRowsSelection(nRowsTotal){
-        nRowsSelection.selectAll('span').remove();
-        if(nRowsSelectionArray.length > 0){
-            if(nRowsText.length > 0){
-                nRowsSelection.append('span')
-                    .text(nRowsText+':');
+    function attachCellCallback(cells, rowData){
+
+        cells.attr('data-tippy-content', d=>{
+            if(d.tooltip !== null){
+                return d.tooltip(rowData);
             }
-            let options = nRowsSelection.append('span')
+        });
+
+        cells.each(function(d){
+            if(d.tooltip !== null || d.tooltipChart !== null){
+                cellsTooltips.push(
+                    Tippy(this,{
+                        theme: d.tooltip !== null ? 'dark' : 'light',
+                        duration: [500, 0],
+                        allowHTML: true,
+                        onShow(t){
+                            if(d.tooltipChart !== null){
+                                d.tooltipChart(t.popper, rowData);
+                            }
+                        },
+                        onHidden(t){
+                            // remove any svg created
+                            D3Select(t.popper).select('svg').remove();
+                        }
+                    })
+                );
+            }
+
+        });
+
+        
+    }
+
+    function renderRowsFilter(filter=null, nRows=-1){
+        rowsFilter.selectAll('span').remove();
+        if(rowsFilterArray.length > 0){
+            if(rowsFilterText.length > 0){
+                rowsFilter.append('span')
+                    .text(rowsFilterText+':');
+            }
+            let options = rowsFilter.append('span')
                 .classed('options',true)
                 .selectAll('a')
-                .data(nRowsSelectionArray);
+                .data(rowsFilterArray);
             options.enter().append('a')
                 .text(d=>d)
-                .classed('selected', d=>{return nRowsTotal == d;})
-                .on('click', nRowsSelectionCB);
+                .classed('selected', d=>{return filter == d;})
+                .on('click', rowsFilterCB);
+            rowsFilter.append('span')
+                .text(`(${nRows} documents)`);
         }
     }
 
@@ -149,7 +180,7 @@ export default function(container='body', width=800, height=600){
 
     // public
 
-    DocTable.setMinRowHeight = function(h){
+    DocTable.setMinRowHeight = function(h=-1){
         minRowHeightSet = h;
         minRowHeight = Math.max(minRowHeightSet, minRowHeight);
         return DocTable;
@@ -159,15 +190,15 @@ export default function(container='body', width=800, height=600){
         columns.forEach(addColumnInfo);
         return DocTable;
     };
-    DocTable.nRowsSelection = function(options=[], cb=()=>{}, text=''){
-        nRowsSelectionArray = options,
-        nRowsSelectionCB = cb,
-        nRowsText = text;
+    DocTable.rowsFilter = function(options=[], cb=()=>{}, text=''){
+        rowsFilterArray = options,
+        rowsFilterCB = cb,
+        rowsFilterText = text;
         return DocTable;
     };
-    DocTable.render = function(dataset){
+    DocTable.render = function(dataset, filter=null){
         DocTable._removeDefaultText();
-        renderTable(dataset);
+        renderTable(dataset, filter);
         return DocTable;
     };
     DocTable.highlightDocs = function(docIds){
