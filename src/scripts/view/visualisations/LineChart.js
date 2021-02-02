@@ -75,12 +75,11 @@ export default function(container='body', width=800, height=600){
     function setDotsTooltips(){
         dotTooltips.forEach(t=>t.destroy());
         let dots = dotGroup.selectAll('circle.dot');
-        dots.selectAll('circle.dot')
-            .attr('data-tippy-content', d=>{
-                let x = `${xAxisName}: <b>${d.x}</b>`,
-                    y = `${yAxisName}: <b>${d.y}</b>`;
-                return `${x}</br>${y}`;
-            });
+        dots.attr('data-tippy-content', d=>{
+            let x = `${xAxisName}: <b>${d.x}</b>`,
+                y = `${yAxisName}: <b>${d.y}</b>`;
+            return `${x}</br>${y}`;
+        });
         dotTooltips = Tippy(dots.nodes(),{
             theme:'dark',
             duration: [500, 0],
@@ -193,4 +192,6 @@ export default function(container='body', width=800, height=600){
         render(dataset);
         return LineChart;
     };
+
+    return LineChart;
 }

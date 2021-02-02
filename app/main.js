@@ -124,6 +124,7 @@ let menu = tMap.Menu(PM.control3.c,PM.control3.h)
         return SM.buildURL();
     })
     .addScreenshot('#app')
+    .addDownload([{name:'Model data',url:dataDirectory+'model.csv'}])
 
 PM.watch({
     panel1: mainMap,
@@ -136,4 +137,24 @@ PM.watch({
 DM.loadAndProcessDataFromUrls(urls).then(()=>{
     console.log(DM.data);
     mainMap.render(DM.data.mainMap)
+
+    menu.addModelInfo(DM.getMainModelMetadata(), DM.getSubModelMetadata())
+        .addCharts('Models Log-Likelihood', [
+            (m,w,h)=>{
+                tMap.LineChart(m,w,h)
+                    .toggleTitle('Main Model')
+                    .toggleBorder(false)
+                    .setMargin([20,20,60,20])
+                    .setAxesNames('Iterations', 'Log-Likelihood')
+                    .render(DM.getMainLLData().map(d=>{return {x:d.iter,y:d.LL}}))
+            },
+            (m,w,h)=>{
+                tMap.LineChart(m,w,h)
+                    .toggleTitle('Sub Model')
+                    .toggleBorder(false)
+                    .setMargin([20,20,60,20])
+                    .setAxesNames('Iterations', 'Log-Likelihood')
+                    .render(DM.getSubLLData().map(d=>{return {x:d.iter,y:d.LL}}))
+            }
+        ])
 })

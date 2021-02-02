@@ -5,6 +5,7 @@ import {timeFormat as D3TimeFormat} from 'd3-time-format';
 import Tippy from 'tippy.js';
 import html2canvas from 'html2canvas';
 import {saveAs as FSSaveAs} from 'file-saver';
+import has from 'lodash-es/has';
 
 import '../../../styles/controls/Menu.less';
 
@@ -255,7 +256,7 @@ export default function(container='body', buttonSize=50){
             mainText.append('p')
                 .html(`The topics were extracted from <b>${mainMetadata.totalDocs}</b> documents${docRemoved}.`);
             // add stop phrases used, if any
-            if(mainMetadata.stopPhrases.length > 0){
+            if(has(mainMetadata, 'stopPhrases') && mainMetadata.stopPhrases.length > 0){
                 let plural = mainMetadata.stopPhrases.length > 1;
                 mainText.append('p')
                     .html(`The following phrase${plural?'s were':' was'} removed from the documents:`);
@@ -268,7 +269,7 @@ export default function(container='body', buttonSize=50){
             mainText.append('p')
                 .html('Common english words (e.g. articles, or prepositions) were removed from the documents to prevent them from distorting the model.');
             // add custom stop words used
-            if(mainMetadata.stopWords.length > 0){
+            if(has(mainMetadata, 'stopWords') && mainMetadata.stopWords.length > 0){
                 let plural = mainMetadata.stopWords.length > 1;
                 mainText.append('p')
                     .html(`The following word${plural?'s were':' was'} judged too generic in this document set, and therefore also removed:`);
