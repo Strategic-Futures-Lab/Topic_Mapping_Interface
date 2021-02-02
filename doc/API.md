@@ -17,6 +17,9 @@ The script sets up `tMap`, the top level library object for interacting with the
     - [Trend Chart](#trend-chart)
     - [Bar Chart](#bar-chart)
     - [Line Chart](#line-chart)
+- [HTML Panel Modules](#html-panel-modules)
+    - [Document Table](#document-table)
+    - [Document Viewer](#document-viewer)
 
 
 ## Page Manager
@@ -472,7 +475,7 @@ console.log(SM.state('search')); // -> 'label1 label2'
 
 ## Visualisation Modules
 
-The visualisation modules all share [the same base API](#visualisation-api). At this stage, the Topic Mapping Interface comprises the following visualisation modules:
+The visualisation modules are view panels with an SVG structure. They all share [the same base API](#visualisation-api). At this stage, the Topic Mapping Interface comprises the following visualisation modules:
 - [Bubble Topic Map](#bubble-topic-map)
 - [Wordcloud](#worcloud)
 - [Trend Chart](#trend-chart)
@@ -1017,6 +1020,231 @@ Renders the line chart using the provided dataset, which assumes the following f
 ```javascript
 let data = [{x:10,y:3.78},{x:20,y:4.789},{x:30,y:6.098}];
 linechart.render(data); // -> renders data
+```
+
+
+## HTML Panel Modules
+
+The HTML panel modules are view panels with an HTML structure (e.g. table, div, etc.). They all share [the same base API](#panel-api). Currently, the Topic Mapping INterface comprises the following HTML panel modules:
+- [Document Table](#document-table)
+- [Document Viewer](#document-viewer)
+
+### Panel API
+
+The HTML panel modules are all built from the same base module, meaning that they share a common base API.
+
+> Note that all of the functions below return the panel module itself, unless specified otherwise.
+> This allows you to chain this functions.
+
+#### `Panel.setWidth(value)`
+
+Sets the panel width, and automatically adjust its internal elements.
+```javascript
+let p = tMap.somePanel();
+p.setWidth(600); // -> the panel width to 600px
+```
+
+#### `Panel.setHeight(value)`
+
+Sets the panel height, and automatically adjust its internal elements.
+```javascript
+let p = tMap.somePanel();
+p.setHeight(300); // -> the panel height to 300px
+```
+
+#### `Panel.setSize(width, height)`
+
+Sets the panel's width and height, and automatically adjust its internal elements.
+```javascript
+let p = tMap.somePanel();
+p.setSize(600,300); // -> the panel width to 600px and height to 300px
+```
+
+#### `Panel.toggleBorder([boolean])`
+
+Toggles a border around the panel module. The `boolean` parameter lets you specify which state you want: `true` = on, and `false` = off. It is optional will default to the opposite of the visualisation current state. Note that the visualisation border is on by default.
+```javascript
+let p = tMap.somePanel(); // -> the panel border is on
+p.toggleBorder(true); // -> turns on the panel border (no effect)
+p.toggleBorder(false); // -> removes the panel border
+p.toggleBorder(); // -> turns on the panel border
+p.toggleBorder(); // -> turns off the panel border
+```
+
+#### `Panel.toggleTitle([text])`
+
+Toggles a title on the visualisation. If `text` is specified, toggles the title on with this text, otherwise toggles the title off. The title is always placed on top of the panel.
+```javascript
+let p = tMap.somePanel();
+p.toggleTitle('Panel A'); // -> puts 'Panel A' as the top of the panel
+p.toggleTitle(); // -> removes 'Panel A' from the panel
+```
+
+#### `Panel.addDefault(string, [, size [, blinking]])`
+
+Puts a message, `string`, at the center of the visualisation. `size` lets you specify the message size in `em`, defaults to 1. `blinking` lets you specify if you want the message to blink `true` or not `false` (default), for example when loading data.
+```javascript
+let p = tMap.somePanel();
+p.addDefaultText('Loading data', 1.5, true); // -> large blinking text saying 'Loading data'
+``` 
+Note that any message printed this way will be automatically removed once the panel renders data.
+
+
+### Document Table
+
+The document table panel module renders a list of document from `mainModel` or `subModel` files, produced by the Topic Mapping Pipeline model export module.
+
+A Document Table is instantiated using `tMap`'s `DocTable` function. Like most page modules, it takes three parameters: a DOM `container`, and initial `width` and `height`. These parameters are typically returned by the [Page Manager](#page-manager).
+```javascript
+let PM = tMap.PageManager(...);
+let docTable = tMap.DocTable(PM.panel3.c, PM.panel3.w, PM.panel3.h);
+```
+
+This module is built with [the HTML panel API](#panel-api) and therefore has the same methods.
+
+> Note that all of the functions below return the panel module itself, unless specified otherwise.
+> This allows you to chain this functions.
+
+#### `DocTable.setMinRowHeight([value])`
+
+Lets you set the minimum height of rows in the table. The default minimum is set to one eleventh of the table height.
+```javascript
+docTable.setMinRowHeight(20); // -> the table's row is set to 20px
+docTable.setMinRowHeight(); // -> the table's row is set to an eleventh of the table's height
+```
+
+#### `DocTable.setColumnsInfo([columns])
+
+Lets you set the data for the table columns. `columns` should be an array, each entry containing the data for one column. For each column you can specify:
+- `title`, the column header, defaults to `''`;
+- `tooltip`, the tooltip text callback for the column's cells, defaults to `null`;
+- `tooltip`, the tooltip chart callback for the column's cells, defaults to `null`;
+- `accessor`, the value accessor function  for the column's cells, defaults to `()=>{}`;
+- `mouseover`, the mouseover callback for the column's cells, defaults to `()=>{}`;
+- `mouseout`, the mouseout callback for the column's cells, defaults to `()=>{}`;
+- `click`, the click callback for the column's cells, defaults to `()=>{}`;
+- `align`, the alignment style for the column's cells, defaults to `'left'`;
+- `decoration`, the text decoration style for the column's cells, defaults to `'none'`; and
+- `cursor`, the cursor style for the column's cells, defaults to `'default'`.
+
+```javascript
+let tableTooltip = d => {
+    let fields = [];
+    fields.push(`Word Count: ${d.wordCount}`);
+    fields.push(`Relevance: ${Math.floor(d.weight*100)}%`);
+    return fields.join(' - ');
+}; // -> set a tooltip callback with the document's word count and weight, e.g. "Word Count: 104 - Relevance 30%"
+let selectDoc = (e,d)=>{
+    console.log(d);
+    //...
+}; // -> set a click callback printing the document data
+let redirect = (e,d)=>{
+    window.open(d.link, '_blank');
+}; // -> set a click callback opening a new browser window to the document link
+let formatDate = d=>{
+    return format(d, '%b. %Y');
+}; // -> set a function to format date values
+docTable.setColumnsInfo([
+    // set a title column, with tooltip and click callbacks
+    {title:'Title',accessor:d=>d.title,tooltip:tableTooltip,click:selectDoc},
+    // set an authors column, with tooltip and click callbacks
+    {title:'Authors',accessor:d=>d.authors,tooltip:tableTooltip,click:selectDoc},
+    // set a date column, showing the document's date formated, with tooltip and click callbacks
+    {title:'Date',accessor:d=>formatDate(d.date),tooltip:tableTooltip,click:selectDoc},
+    // set a link column, just showin 'link' underline, with tooltip and a redirect click callback
+    {title:'Link',accessor:()=>'link',decoration:'underline',tooltip:tableTooltip,click:redirect}
+    ]);
+```
+
+> Note that the click, mouseover, and mouseout callbacks have to follow D3 v6.0's callback signature:
+> `callback(event, datum)`
+> In this instance, `datum` refers to the row data.
+> Check [D3 v6.0 migration guide](https://observablehq.com/@d3/d3v6-migration-guide#events) for more details
+> 
+> The tooltip, tooltipChart, and accessor functions take the row data as unique argument. 
+
+#### `DocTable.rowsFilter([options [, callback [, text]]])`
+
+Lets you set filter options, on top of the table, for the table rows. `options` is the list of of options available for the filter, it defaults to `[]`, which completely removes the filter. `callback` is the callback function for clicks on the filter options. `text` is the text to display before the filter options for context, it defaults to `''`. On render, the filter will also print the number of rows in the table.
+```javascript
+docTable.rowsFilter([20,60,90],(e,d)=>{docTable.render(DM.getTableRows(50, d2=>Math.floor(d2.weight*100)>=d),d)},'Min Relevance'); // -> dislay 'Min Relevance: 20 60 90' on top of the table
+// if the user clicks on 60, the table will have up to 50 rows with a document weight greater or equal to 60%
+
+docTable.rowsFilter([10,20,50],(e,d)=>{docTable.render(DM.getTableRows(d),d)},'N Docs'); // -> dislay 'N Docs: 10 20 50' on top of the table
+// if the user clicks on 20, the table will have up to 20 rows
+```
+
+> Note that the click callback has to follow D3 v6.0's callback signature:
+> `callback(event, datum)`
+> Check [D3 v6.0 migration guide](https://observablehq.com/@d3/d3v6-migration-guide#events) for more details
+
+
+#### `DocTable.render(dataset [,filter])`
+
+Renders the table using `dataset` to fill its rows. Each row will render its cells according to the columns info set previously. `filter` is an optional parameter informing the module if a filter option was used (to highlight it).
+```javascript
+let DM = tMap.DataManager();
+DM.setTableRowsMainTopic('4'); // -> set the table rows to the top documents of main topic 4
+docTable.render(DM.getTableRows(50)); // -> render the table using the top 50 documents set in data manager
+``` 
+
+#### `DocTable.highlightDocs(docIds)`
+
+Mark the table rows as highlighted (CSS class), if their corresponding document id is part of the `docIds` list.
+```javascript
+docTable.highlightDocs(['34','56','87']); // -> mark documents 34, 56, and 87 as highlighted
+```
+
+#### `DocTable.fadeDocs(docIds)`
+
+Mark the table rows as faded (CSS class), if their corresponding document id is part of the `docIds` list.
+```javascript
+docTable.highlightDocs(['21','35','67']); // -> mark documents 21, 35, and 67 as faded
+```
+
+
+### Document Viewer
+
+The document viewer panel module renders a document's data from `mainModel` or `subModel` files, produced by the Topic Mapping Pipeline model export module.
+
+A Document Viewer is instantiated using `tMap`'s `DocViewer` function. Like most page modules, it takes three parameters: a DOM `container`, and initial `width` and `height`. These parameters are typically returned by the [Page Manager](#page-manager).
+```javascript
+let PM = tMap.PageManager(...);
+let docViewer = tMap.DocViewer(PM.panel4.c, PM.panel4.w, PM.panel4.h);
+```
+
+This module is built with [the HTML panel API](#panel-api) and therefore has the same methods.
+
+> Note that all of the functions below return the panel module itself, unless specified otherwise.
+> This allows you to chain this functions.
+
+#### `DocViewer.setFields([fields])`
+
+Lets you specify which document fields the document viewer should display. `fields` is an optional list, it defaults to `null`, meaning to desired fields, and therefore the viewer will disply all document fields in any order. The `fields` list can take multiple forms:
+- a list of string, corresponding to the fields' keys (and order of fields) you want displayed for the document data;
+- a list of lists, corresponding to the fields and order of fields you wan displayed for the document data:
+    - with a first string item: the field's key in the document data;
+    - with an optional second item: the key value you want displayed on the viewer;
+    - with an optional third item: a transform function for the field's value (e.g. number format).
+```javascript
+docViewer.setFields(['title','authors',['university','institution',d=>`University of ${d}`],'abstract',['money','grant',d=>format(d,'£.2f')]);
+// -> in the doc viewer display the document's title, authors, university, abstract and money, in that order
+// university should be renamed institution, and the field value should have 'University of ' prepended to it
+//  money should be renamed grant, and the field value should be formatted to a 2 decimal fixed value with a £ prefix
+```
+
+#### `DocViewer.render(docData)`
+
+Renders the document viewer with the provided document data.
+```javascript
+docTable.setColumnsInfo([{
+    title:Title,
+    accessor:d=>d.docData.title,
+    click(e,d)=>{
+        docViewer.render(d.docData)
+    }
+}])
+// -> in the document table, show one column for the docuemnts' title. Upon clicking on a title, render the document viewer with the corresponding document data.
 ```
 
 

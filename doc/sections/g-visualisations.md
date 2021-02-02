@@ -1,7 +1,7 @@
 
 ## Visualisation Modules
 
-The visualisation modules all share [the same base API](#visualisation-api). At this stage, the Topic Mapping Interface comprises the following visualisation modules:
+The visualisation modules are view panels with an SVG structure. They all share [the same base API](#visualisation-api). At this stage, the Topic Mapping Interface comprises the following visualisation modules:
 - [Bubble Topic Map](#bubble-topic-map)
 - [Wordcloud](#worcloud)
 - [Trend Chart](#trend-chart)

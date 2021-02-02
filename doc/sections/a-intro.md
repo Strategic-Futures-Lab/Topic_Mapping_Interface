@@ -17,3 +17,6 @@ The script sets up `tMap`, the top level library object for interacting with the
     - [Trend Chart](#trend-chart)
     - [Bar Chart](#bar-chart)
     - [Line Chart](#line-chart)
+- [HTML Panel Modules](#html-panel-modules)
+    - [Document Table](#document-table)
+    - [Document Viewer](#document-viewer)
