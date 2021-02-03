@@ -1,7 +1,7 @@
 
 ## HTML Panel Modules
 
-The HTML panel modules are view panels with an HTML structure (e.g. table, div, etc.). They all share [the same base API](#panel-api). Currently, the Topic Mapping INterface comprises the following HTML panel modules:
+The HTML panel modules are view panels with an HTML structure (e.g. table, div, etc.). They all share [the same base API](#panel-api). Currently, the Topic Mapping Interface comprises the following HTML panel modules:
 - [Document Table](#document-table)
 - [Document Viewer](#document-viewer)
 

@@ -20,3 +20,5 @@ The script sets up `tMap`, the top level library object for interacting with the
 - [HTML Panel Modules](#html-panel-modules)
     - [Document Table](#document-table)
     - [Document Viewer](#document-viewer)
+- [Control Modules](#control-modules)
+    - [Floating Menu](#floating-menu)

@@ -131,48 +131,49 @@ export default function(container='body', buttonSize=50){
     // clone specified element, fix style issue
     // render in html canvas
     // save as png, and delete clone
-    function cloneElem(elId){
-        let clone = document.querySelector(elId).cloneNode(true);
-        document.body.append(clone);
-        return clone;
-    }
-    function setInlineStyles(targetElem) {
-        const transformProperties = [
-            'fill',
-            'color',
-            'font-size',
-            'stroke',
-            'font',
-            'text-anchor'
-        ];
-        let svgElems = Array.from(targetElem.getElementsByTagName('svg'));
-        for (let svgElement of svgElems) {
-            recurseElementChildren(svgElement);
-        }
-        function recurseElementChildren(node) {
-            if (!node.style) return;
-            let styles = getComputedStyle(node);
-            for (let transformProperty of transformProperties) {
-                node.style[transformProperty] = styles[transformProperty];
-            }
-            for (let child of Array.from(node.childNodes)) {
-                recurseElementChildren(child);
-            }
-        }
-    }
+    // function cloneElem(elId){
+    //     let clone = document.querySelector(elId);//.cloneNode(true);
+    //     // document.body.append(clone);
+    //     // clone.style.padding = 20;
+    //     return clone;
+    // }
+    // function setInlineStyles(targetElem) {
+    //     const transformProperties = [
+    //         'fill',
+    //         'color',
+    //         'font-size',
+    //         'stroke',
+    //         'font',
+    //         'text-anchor'
+    //     ];
+    //     let svgElems = Array.from(targetElem.getElementsByTagName('svg'));
+    //     for (let svgElement of svgElems) {
+    //         recurseElementChildren(svgElement);
+    //     }
+    //     function recurseElementChildren(node) {
+    //         if (!node.style) return;
+    //         let styles = getComputedStyle(node);
+    //         for (let transformProperty of transformProperties) {
+    //             node.style[transformProperty] = styles[transformProperty];
+    //         }
+    //         for (let child of Array.from(node.childNodes)) {
+    //             recurseElementChildren(child);
+    //         }
+    //     }
+    // }
     let formatTime = D3TimeFormat('%Y-%m-%d_%H-%M');
-    Menu.addScreenshot = function(elId, timeout=500){
+    Menu.addScreenshot = function(elId, timeout=1000){
         let option = menuOptions.append('li');
         option.on('click', ()=>{
             setTimeout(()=>{
-                let clone = cloneElem(elId);
-                setInlineStyles(clone);
-                html2canvas(clone).then(canvas=>{
+                // let clone = cloneElem(elId);
+                // setInlineStyles(clone);
+                html2canvas(document.querySelector(elId)).then(canvas=>{
                     canvas.toBlob(function(blob){
                         FSSaveAs(blob, `SFL_TopicMap_${formatTime(new Date())}.png`);
                     });
                 });
-                clone.remove();
+                // clone.remove();
             }, timeout);
         }).append('a').text('Take Screenshot');
         return Menu;
