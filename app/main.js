@@ -47,14 +47,14 @@ let subMap = tMap.BubbleMap(PM.panel2.c, PM.panel2.w, PM.panel2.h)
     .toggleButton('TR', 'Test', ()=>{console.log('button test')})
     .toggleTitle('Topic Map');
 
-let sumByMonth = DM.timeFormatConverter('%d/%m/%y', '%Y-%m'),
-    sumByQuarter = DM.timeFormatConverter('%d/%m/%y', '%Y-%q'),
-    sumByYear = DM.timeFormatConverter('%d/%m/%y', '%Y'),
+let sumByMonth = tMap.dateConverter('%d/%m/%y', '%Y-%m'),
+    sumByQuarter = tMap.dateConverter('%d/%m/%y', '%Y-%q'),
+    sumByYear = tMap.dateConverter('%d/%m/%y', '%Y'),
     trendsRange = ['%d/%m/%y', '01/01/11', '01/01/20'];
 let trend = tMap.TrendChart(PM.panel4.c, PM.panel4.w, PM.panel4.h)
     .setDateTicks('%Y')
     .setValueTicks(10, '.0f')
-    .setTooltip(d=>`${d.value} publications`)
+    .setTooltip(d=>`${tMap.formatNumber(d.value, ',d')} publications`)
     .setTransition(500, 100)
     .addDefaultText('Click on a bubble to see the topic trends.')
     .setMargin([40,20,30,10])
@@ -162,6 +162,7 @@ let menu = tMap.Menu(PM.control3.c,PM.control3.h)
     })
     .addScreenshot('#app')
     .addDownload([{name:'Model data',url:dataDirectory+'model.csv'}])
+    .addModal('About', tMap.aboutTopicMapping())
 
 PM.watch({
     panel1: mainMap,
