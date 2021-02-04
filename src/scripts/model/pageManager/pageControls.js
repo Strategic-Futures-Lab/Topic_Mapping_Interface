@@ -36,7 +36,7 @@ function getControls(nCtrl, colSizes, align, dashboard=true){
         let space = nCols-rowLength;
         let a = align;
         if(areaStrings[i].length == 1 && align == 'b'){
-            a = 'r';
+            a = 'l';
         } else if(areaStrings[i].length == 1 && align == 'a') {
             a = 'c';
         }

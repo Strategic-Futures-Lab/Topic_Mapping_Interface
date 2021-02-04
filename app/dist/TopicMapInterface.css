@@ -1674,11 +1674,11 @@ div.searchBoxWrapper span {
 }
 div.searchBoxWrapper span input[type=text] {
   box-sizing: unset;
-  width: calc(100% - 14px);
+  width: calc(100% - 32px);
   height: calc(100% - 14px);
   font-family: var(--text-font);
   padding: 5px;
-  padding-right: 16px;
+  padding-right: 24px;
   margin: 1px;
   color: var(--color-black);
   border: solid 1px var(--color-light-grey);

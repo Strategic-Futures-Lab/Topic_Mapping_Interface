@@ -12,7 +12,7 @@ const urls = {
     subLL : dataDirectory + 'subLL.json'
 }
 
-let PM = tMap.PageManager('div#app', 'E', '3-3-2-1-b', 'div#header', 'div#footer', 700, 700);
+let PM = tMap.PageManager('div#app', 'E', '4-5-1-5-1-b', 'div#header', 'div#footer', 700, 700);
 
 let DM = tMap.DataManager();
 
@@ -123,7 +123,7 @@ function selectDoc(e,d){
     // docView.render(d.docData);
 }
 
-let dropdown = tMap.Dropdown(PM.control2.c,PM.control2.w,PM.control2.h)
+let dropdown = tMap.Dropdown(PM.control3.c,PM.control3.w,PM.control3.h)
     .setSelectCB(selectDistribution);
 
 function selectDistribution(value){
@@ -156,7 +156,7 @@ function highlightFromLabelSearch(){
     table.highlightDocs(docIds);
 }
 
-let menu = tMap.Menu(PM.control3.c,PM.control3.h)
+let menu = tMap.Menu(PM.control4.c,PM.control4.h)
     .addShare(()=>{
         return SM.buildURL();
     })
@@ -171,8 +171,8 @@ PM.watch({
     panel4: trend,
     panel5: table,
     control1: search,
-    control2: dropdown,
-    control3: menu
+    control3: dropdown,
+    control4: menu
 })
 
 DM.loadAndProcessDataFromUrls(urls).then(()=>{
