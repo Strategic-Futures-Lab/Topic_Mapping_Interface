@@ -22,3 +22,4 @@ The script sets up `tMap`, the top level library object for interacting with the
     - [Document Viewer](#document-viewer)
 - [Control Modules](#control-modules)
     - [Floating Menu](#floating-menu)
+    - [Search Box](#search-box)

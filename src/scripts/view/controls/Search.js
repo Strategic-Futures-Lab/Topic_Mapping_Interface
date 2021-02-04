@@ -23,7 +23,7 @@ export default function(container='body', width=500, height=80){
         .html('&#10005;')
         .on('click', ()=>{
             input.node().value = '';
-            displayClear('');
+            styleBox('');
             searchCB('');
         })
         .attr('title', 'Clear search');
@@ -31,16 +31,18 @@ export default function(container='body', width=500, height=80){
     function setCB(){
         input.on('input', function(){
             let v = D3Select(this).node().value.toLowerCase();
-            displayClear(v);
+            styleBox(v);
             searchCB(v);
         });
     }
 
-    function displayClear(v){
+    function styleBox(v){
         if(v === '' || v === null){
             clear.style('display', 'none');
+            input.classed('active', false);
         } else {
             clear.style('display', 'block');
+            input.classed('active', true);
         }
     }
 
@@ -68,18 +70,18 @@ export default function(container='body', width=500, height=80){
         resize();
         return Search;
     };
+    Search.setPlaceholder = function(str){
+        input.attr('placeholder', str);
+        return Search;
+    };
     Search.setSearchCB = function(cb){
         searchCB = cb;
         setCB();
         return Search;
     };
-    Search.activate = function(flag=true){
-        input.classed('active', flag);
-        return Search;
-    };
     Search.setValue = function(str){
         input.node().value = str;
-        displayClear(str);
+        styleBox(str);
         return Search;
     };
     Search.getValue = function(){

@@ -128,7 +128,6 @@ let search = tMap.Search(PM.control1.c,PM.control1.w,PM.control1.h)
 
 function searchLabels(query){
     SM.state('search', query.length > 0 ? query : null);
-    search.activate(SM.state('search')!=='');
     DM.setSearchTerm(SM.state('search'));
     highlightFromLabelSearch();
 }
