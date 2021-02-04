@@ -77,7 +77,10 @@ export default function(container='body', buttonSize=50){
 
     // public
 
-    Menu.setSize = function(v){
+    // two arguments in case it's used by page manager
+    // second arguments replaces first if not null
+    Menu.setSize = function(v, v2=null){
+        v = v2==null ? v : v2;
         menuButtonSize = Math.max(30, v);
         resizeButton();
         return Menu;

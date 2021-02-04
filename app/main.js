@@ -12,7 +12,7 @@ const urls = {
     subLL : dataDirectory + 'subLL.json'
 }
 
-let PM = tMap.PageManager('div#app', 'E', '3-2-2-2-b', 'div#header', 'div#footer', 700, 700);
+let PM = tMap.PageManager('div#app', 'E', '3-3-2-1-b', 'div#header', 'div#footer', 700, 700);
 
 let DM = tMap.DataManager();
 
@@ -82,7 +82,7 @@ let table = tMap.DocTable(PM.panel5.c, PM.panel5.w, PM.panel5.h)
         {title:'Date',accessor:d=>d.docData.date,tooltip:tableTooltip,click:selectDoc},
         {title:'Money',accessor:d=>d.docData.money,tooltip:tableTooltip,tooltipChart:tableTooltipChart,click:selectDoc},
     ])
-    .rowsFilter([20,60,90],(e,d)=>{table.render(DM.getTableRows(50, d2=>Math.floor(d2.weight*100)>=d),d)},'Min Relevance')
+    .rowsFilter([0,20,60,90],(e,d)=>{table.render(DM.getTableRows(50, d2=>Math.floor(d2.weight*100)>=d),d)},'Min Relevance')
     // .rowsFilter([10,20,50],(e,d)=>{table.render(DM.getTableRows(d),d)},'N Docs');
 
 // let docView = tMap.DocViewer(PM.panel5.c,PM.panel5.w,PM.panel5.h)
@@ -98,6 +98,8 @@ function selectMainTopic(e,d){
     trend.render([DM.getMainTopicTrend(SM.state('mainTopic'), sumByYear, trendsRange)]);
     DM.setTableRowsMainTopic(SM.state('mainTopic'));
     table.render(DM.getTableRows(50));
+
+    highlightFromLabelSearch();
 }
 
 function newSubMap(){
@@ -113,10 +115,32 @@ function selectSubTopic(e,d){
                   DM.getSubTopicTrend(SM.state('subTopic'), sumByYear, trendsRange)]);
     DM.setTableRowsSubTopic(SM.state('subTopic'));
     table.render(DM.getTableRows(50));
+
+    highlightFromLabelSearch();
 }
 
 function selectDoc(e,d){
     // docView.render(d.docData);
+}
+
+let search = tMap.Search(PM.control1.c,PM.control1.w,PM.control1.h)
+    .setSearchCB(searchLabels);
+
+function searchLabels(query){
+    SM.state('search', query.length > 0 ? query : null);
+    search.activate(SM.state('search')!=='');
+    DM.setSearchTerm(SM.state('search'));
+    highlightFromLabelSearch();
+}
+
+function highlightFromLabelSearch(){
+    let {mainTopicIds, subTopicIds} = DM.getTopicIdsFromSearch();
+    mainMap.highlightBubbles(mainTopicIds);
+    subMap.highlightBubbles(subTopicIds);
+    let labels = DM.getLabelsFromSearch();
+    wordcloud.highlightTexts(labels);
+    let docIds = DM.getDocIdsFromSearch();
+    table.highlightDocs(docIds);
 }
 
 let menu = tMap.Menu(PM.control3.c,PM.control3.h)
@@ -131,7 +155,9 @@ PM.watch({
     panel2: subMap,
     panel3: wordcloud,
     panel4: trend,
-    panel5: table
+    panel5: table,
+    control1: search,
+    control3: menu
 })
 
 DM.loadAndProcessDataFromUrls(urls).then(()=>{

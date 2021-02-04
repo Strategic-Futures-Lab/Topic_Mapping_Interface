@@ -55,7 +55,7 @@ export default function(Data){
      * Sets the search string
      */
     Data.setSearchTerm = function(searchTerm){
-        Data.data.searchTerm = searchTerm === '' ? null : searchTerm.toLowerCase();
+        Data.data.searchTerm = searchTerm === '' || searchTerm === null ? null : searchTerm.toLowerCase();
         return Data;
     };
 

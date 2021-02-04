@@ -14,11 +14,11 @@ export default function(){
         search: {value:null, short:'s'}        // value in search box
     };
 
-    StateManager.state = function(state, value=null){
+    StateManager.state = function(state, value){
         if(!has(StateManager.states, state)){
             throw new Error('State error: '+state+' is not a valid state property');
         }
-        if(value === null){
+        if(typeof value === 'undefined'){
             return StateManager.states[state].value;
         } else {
             StateManager.states[state].value = value;
