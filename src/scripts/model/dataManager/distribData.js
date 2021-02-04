@@ -86,7 +86,7 @@ export default function(Data){
                 };
             });
         let fieldTotal = fieldDistribution.reduce((acc, cur)=>{return acc+cur.value;}, 0);
-        return fieldDistribution.map(d=>{return {topicId:d.topicId,value:d.value/fieldTotal};});
+        return fieldDistribution.map(d=>{return {key:d.key,value:d.value/fieldTotal};});
     }
 
     /**

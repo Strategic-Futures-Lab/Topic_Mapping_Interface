@@ -123,6 +123,20 @@ function selectDoc(e,d){
     // docView.render(d.docData);
 }
 
+let dropdown = tMap.Dropdown(PM.control2.c,PM.control2.w,PM.control2.h)
+    .setSelectCB(selectDistribution);
+
+function selectDistribution(value){
+    SM.state('distrib', value);
+    if(SM.state('distrib') == 'All'){
+        mainMap.setBubblesOpacity([], true);
+        subMap.setBubblesOpacity([], true);
+    } else {
+        mainMap.setBubblesOpacity(DM.getMainTopicsDistribNormPerTopic(SM.state('distrib')));
+        subMap.setBubblesOpacity(DM.getSubTopicsDistribNormPerTopic(SM.state('distrib')));
+    }
+}
+
 let search = tMap.Search(PM.control1.c,PM.control1.w,PM.control1.h)
     .setSearchCB(searchLabels);
 
@@ -156,12 +170,17 @@ PM.watch({
     panel4: trend,
     panel5: table,
     control1: search,
+    control2: dropdown,
     control3: menu
 })
 
 DM.loadAndProcessDataFromUrls(urls).then(()=>{
     console.log(DM.data);
     mainMap.render(DM.data.mainMap)
+
+    let distribValues = DM.getDistributionLabels();
+    distribValues.unshift({value:'All',text:'All'});
+    dropdown.setOptions(distribValues);
 
     menu.addModelInfo(DM.getMainModelMetadata(), DM.getSubModelMetadata())
         .addCharts('Models Log-Likelihood', [

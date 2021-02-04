@@ -23,3 +23,4 @@ The script sets up `tMap`, the top level library object for interacting with the
 - [Control Modules](#control-modules)
     - [Floating Menu](#floating-menu)
     - [Search Box](#search-box)
+    - [Dropdown Filter](#dropdown-filter)
