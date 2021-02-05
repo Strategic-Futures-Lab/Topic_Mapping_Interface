@@ -33,7 +33,12 @@ let mainMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h)
 let wordcloud = tMap.WordCloud(PM.panel3.c, PM.panel3.w, PM.panel3.h)
     .addDefaultText('Click on a bubble to see more labels.', 1, true)
     .setMargin([40,10,10,10])
-    .toggleTitle('Topic Labels');
+    .toggleTitle('Topic Labels')
+    .setWordClick((e,d)=>{
+        let s = DM.processWordInSearch(d.t, SM.state('search'));
+        search.setValue(s);
+        searchLabels(s.toLowerCase());
+    });
 let subMap = tMap.BubbleMap(PM.panel2.c, PM.panel2.w, PM.panel2.h)
     .setTooltip(d=>d.size)
     .setTooltipChart((t,d)=>{

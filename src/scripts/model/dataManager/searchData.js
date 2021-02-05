@@ -68,6 +68,9 @@ export default function(Data){
         // test if word already in search
         let w = word.toLowerCase();
         let s = searchValue == null ? Data.data.searchTerm : searchValue.toLowerCase();
+        if(typeof s == 'undefined' || s == null){
+            s = '';
+        }
         let r = new RegExp(`;?\\s*${w}(\\s|;|$)`, 'gi');
         let inSearch = r.test(s);
         let n = '';
