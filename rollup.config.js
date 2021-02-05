@@ -40,7 +40,7 @@ function setupBuild(src, dist, name){
     return {
         input: srcDir+src,
         output: {
-            file: distDir+dist,
+            file: distDir+dist.replace('.js', (process.env.NODE_ENV === 'production' ? '.min' : '')+'.js'),
             format: 'iife',
             name,
             sourcemap: (process.env.NODE_ENV === 'production' ? false : 'inline')
