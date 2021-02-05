@@ -13,7 +13,7 @@ The script sets up `tMap`, the top level library object for interacting with the
 - [State Management](#state-manager)
 - [Visualisation Modules](#visualisation-modules)
     - [Bubble Topic Map](#bubble-topic-map)
-    - [Wordcloud](#worcloud)
+    - [Wordcloud](#wordcloud)
     - [Trend Chart](#trend-chart)
     - [Bar Chart](#bar-chart)
     - [Line Chart](#line-chart)
@@ -532,7 +532,7 @@ console.log(SM.state('search')); // -> 'label1 label2'
 
 The visualisation modules are view panels with an SVG structure. They all share [the same base API](#visualisation-api). At this stage, the Topic Mapping Interface comprises the following visualisation modules:
 - [Bubble Topic Map](#bubble-topic-map)
-- [Wordcloud](#worcloud)
+- [Wordcloud](#wordcloud)
 - [Trend Chart](#trend-chart)
 - [Bar Chart](#bar-chart)
 - [Line Chart](#line-chart)

@@ -13,7 +13,7 @@ The script sets up `tMap`, the top level library object for interacting with the
 - [State Management](#state-manager)
 - [Visualisation Modules](#visualisation-modules)
     - [Bubble Topic Map](#bubble-topic-map)
-    - [Wordcloud](#worcloud)
+    - [Wordcloud](#wordcloud)
     - [Trend Chart](#trend-chart)
     - [Bar Chart](#bar-chart)
     - [Line Chart](#line-chart)
