@@ -606,7 +606,7 @@ v.toggleTitle('Visualisation', 'B'); // -> moves 'Visualisation' as the bottom o
 v.toggleTitle(); // -> removes 'Visualisation' from the visualisation
 ```
 
-#### `Visualisation.addDefaultText(string [,scale [,blinking]])
+#### `Visualisation.addDefaultText(string [,scale [,blinking]])`
 
 Puts a message, `string`, at the center of the visualisation. `scale` lets you specify the message size, defaults to 1. `blinking` lets you specify if you want the message to blink `true` or not `false` (default), for example when loading data.
 ```javascript
