@@ -1460,6 +1460,8 @@ let SM = tMap.StateManager();
 search.setValue(SM.state('search')); // -> sets the search input value to the state manager's search state
 ```
 
+> This triggers the input event, and by extenstion calls the callback function
+
 #### `Search.getValue()`
 
 Returns the current search input value.

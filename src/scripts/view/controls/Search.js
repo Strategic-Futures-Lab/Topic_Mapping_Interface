@@ -82,6 +82,7 @@ export default function(container='body', width=500, height=80){
     Search.setValue = function(str){
         input.node().value = str;
         styleBox(str);
+        searchCB(str);
         return Search;
     };
     Search.getValue = function(){
