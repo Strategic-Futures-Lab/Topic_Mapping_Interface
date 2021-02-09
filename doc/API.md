@@ -689,7 +689,7 @@ Given a list of topic ids, will mark the associated bubbles as *highlighted* (us
 bubbleMap.selectBubble(['2','3','8','13']); // bubbles for topics '2','3','8', and '13' will be classed 'highlighted'
 ```
 
-#### `BubbleMap.setBubblesOpacity(distributionData [,reset])
+#### `BubbleMap.setBubblesOpacity(distributionData [,reset])`
 
 Given a distribution (list of topic ids/keys and weights/values), will adjust the opacity of bubbles to reflect the weights. `reset` is an optional parameter that lets you reset all the opacities to `1` (`true`), it defaults to `false`.
 ```javascript
