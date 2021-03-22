@@ -26,7 +26,7 @@ wordcloud.setMaxNumberLabels(30); // -> the wordcloud will render a maximum of 3
 Sets the range, in pixel, at which the labels will be rendered. The default range is set to `[10,25]`.
 ```javascript
 wordcloud.setTextSizeRange([20, 30]); // -> the labels' size will be set between 20 and 30 pixel (small range) 
-wordcloud.setTextSizeRange([10, 35]); // -> the labels' size will be set between 20 and 30 pixel (large range)
+wordcloud.setTextSizeRange([10, 35]); // -> the labels' size will be set between 10 and 35 pixel (large range)
 ```
 
 Note that this range is only relative (within labels), the wordcloud is scaled after each render to fit inside its SVG.
