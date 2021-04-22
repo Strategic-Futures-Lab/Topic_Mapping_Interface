@@ -117,7 +117,7 @@ export default function(Data){
         let max = -1;
         // let reduceWeights = d=>d.distribution.reduce((acc,val)=>{return acc+val.weight;},0);
         let maxWeights = d=>D3Max(d.distribution, d2=>d2.weight);
-        let maxWeightsSumBy = d=>sumDates(d.distribution, sumBy);
+        let maxWeightsSumBy = d=>sumDates(d.distribution.map(d2=>{return {date:d2.id,value:d2.weight};}), sumBy);
         let fun = sumBy === null ? maxWeights : maxWeightsSumBy;
         if(!has(Data.data, 'trend')){
             throw new Error('Data Error: trend was not loaded');
