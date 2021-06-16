@@ -56,7 +56,7 @@ export default function(container = 'body', width = 800, height = 600){
         borders.enter().append('path').classed('border',true);
         borders = borderGroup.selectAll('path.border');
         borders.attr('d', arc=>arc.d)
-            .style('stroke-width', arc=>arc.strokeWidth)
+            .style('stroke-width', arc=>arc.strokeWidth||1)
             .attr('transform', arc=>{
                 let coords = arc.transform.split('translate(')[1],
                     x = parseFloat(coords.split(',')[0]),

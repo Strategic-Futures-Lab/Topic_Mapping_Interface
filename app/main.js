@@ -29,7 +29,7 @@ let mainMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h)
     .addDefaultText('Loading...', 2, true)
     .setMargin([40,10,10,10])
     .toggleButton('TR', 'Test', ()=>{console.log('button test')})
-    .toggleTitle('Topic Map').setMinimumTextSize(2);;
+    .toggleTitle('Topic Map').setMinimumTextSize(2);
 let wordcloud = tMap.WordCloud(PM.panel3.c, PM.panel3.w, PM.panel3.h)
     .addDefaultText('Click on a bubble to see more labels.', 1, true)
     .setMargin([40,10,10,10])
