@@ -1,4 +1,4 @@
-# Topic Mapping Interface
+# Topic Mapping Interface [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
 ## Structure
 
@@ -20,8 +20,6 @@ To build the application, run ```$ npm run build```. It will build the sources, 
 Check [the API doc](./doc/API.md).
 
 ---
-
-[![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
 This work is licensed under a [Creative Commons Attribution 4.0 International
 License][cc-by-nc].

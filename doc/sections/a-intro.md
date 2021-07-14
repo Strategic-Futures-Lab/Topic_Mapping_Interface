@@ -1,5 +1,5 @@
 
-# Topic Mapping Interface - API doc
+# Topic Mapping Interface - API doc [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
 The Topic Mapping Interface script and stylesheet bundles are located in [`app/dist`](../app/dist).
 
