@@ -180,10 +180,14 @@ PM.watch({
     control4: menu
 })
 
+function parseURL(){
+    SM.parseURL();
+    // ...
+}
+
 DM.loadAndProcessDataFromUrls(urls).then(()=>{
     console.log(DM.data);
     mainMap.render(DM.data.mainMap)
-
     let distribValues = DM.getDistributionLabels();
     distribValues.unshift({value:'All',text:'All'});
     dropdown.setOptions(distribValues);
@@ -207,4 +211,6 @@ DM.loadAndProcessDataFromUrls(urls).then(()=>{
                     .render(DM.getSubLLData().map(d=>{return {x:d.iter,y:d.LL}}))
             }
         ])
+    
+    parseURL();
 })
