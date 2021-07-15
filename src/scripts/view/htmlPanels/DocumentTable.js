@@ -2,6 +2,7 @@ import PanelWrapper from './utils/PanelWrapper';
 
 import {select as D3Select} from 'd3-selection';
 import Tippy from 'tippy.js';
+import Clusterize from 'clusterize.js';
 
 import '../../../styles/htmlPanels/DocTable.less';
 
@@ -22,14 +23,36 @@ export default function(container='body', width=800, height=600){
 
     let cellsTooltips = [];
 
+    let doClusterize = false,
+        clusterize = null,
+        chunkSize = 100;
+
+    
+
     let docTable = DocTable._wrapper.append('div')
         .classed('table', true);
     let rowsFilter = docTable.append('span')
         .classed('rowsFilter', true);
     let table = docTable.append('table'),
         thead = table.append('thead'),
-        tbody = table.append('tbody'),
+        tbody = table.append('tbody')
+            .attr('id', 'contentArea')
+            .classed('clusterize-content', true),
         titleRow = thead.append('tr');
+
+    function setupClusterize(){
+        if(doClusterize){
+            DocTable._wrapper.attr('id', 'scrollAreaClusterize')
+                .classed('clusterize-scroll', true);
+            tbody.attr('id', 'contentAreaClusterize')
+                .classed('clusterize-content', true);
+        } else {
+            DocTable._wrapper.attr('id', null)
+                .classed('clusterize-scroll', false);
+            tbody.attr('id', null)
+                .classed('clusterize-content', false);
+        }
+    }
 
     function addColumnInfo(c){
         let defaultValue = (value, def)=>{
@@ -50,9 +73,34 @@ export default function(container='body', width=800, height=600){
     }
 
     function renderTable(dataset, filter=null){
+        if(clusterize != null){
+            clusterize.destroy();
+        }
         renderDataRows(dataset);
         renderRowsFilter(filter, dataset.length);
         renderTitleRow();
+        if(doClusterize){
+            fitHeaders();
+            clusterize = new Clusterize({
+                scrollId: 'scrollAreaClusterize',
+                contentId: 'contentAreaClusterize',
+                rows_in_block: chunkSize,
+                callbacks: {
+                    clusterChanged: fitHeaders
+                }
+            });
+        }
+    }
+
+    function fitHeaders(){
+        let firstRow = tbody.select('tr');
+        let columnsWidth = [];
+        firstRow.selectAll('td').each(function() {
+            columnsWidth.push(this.offsetWidth);
+        });
+        titleRow.selectAll('th').each(function(d,i) {
+            D3Select(this).attr('width', columnsWidth[i]);
+        });
     }
 
     function renderTitleRow(){
@@ -207,6 +255,12 @@ export default function(container='body', width=800, height=600){
     };
     DocTable.fadeDocs = function(docIds){
         fadeRows(docIds);
+        return DocTable;
+    };
+    DocTable.doClusterize = function(bool=false, size=100){
+        doClusterize = bool;
+        chunkSize = size;
+        setupClusterize();
         return DocTable;
     };
 

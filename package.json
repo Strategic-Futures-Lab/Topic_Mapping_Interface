@@ -31,10 +31,12 @@
     "defaults"
   ],
   "dependencies": {
+    "clusterize.js": "^0.18.1",
     "d3": "^6.3.1",
     "d3-cloud": "^1.2.5",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.0.0-rc.7",
+    "js-search": "^2.0.0",
     "lodash-es": "^4.17.20",
     "tippy.js": "^6.2.7"
   }

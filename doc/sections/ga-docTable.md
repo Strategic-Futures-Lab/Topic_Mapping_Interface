@@ -27,7 +27,7 @@ docTable.setMinRowHeight(); // -> the table's row is set to an eleventh of the t
 Lets you set the data for the table columns. `columns` should be an array, each entry containing the data for one column. For each column you can specify:
 - `title`, the column header, defaults to `''`;
 - `tooltip`, the tooltip text callback for the column's cells, defaults to `null`;
-- `tooltip`, the tooltip chart callback for the column's cells, defaults to `null`;
+- `tooltipChart`, the tooltip chart callback for the column's cells, defaults to `null`;
 - `accessor`, the value accessor function  for the column's cells, defaults to `()=>{}`;
 - `mouseover`, the mouseover callback for the column's cells, defaults to `()=>{}`;
 - `mouseout`, the mouseout callback for the column's cells, defaults to `()=>{}`;
@@ -109,4 +109,11 @@ docTable.highlightDocs(['34','56','87']); // -> mark documents 34, 56, and 87 as
 Mark the table rows as faded (CSS class), if their corresponding document id is part of the `docIds` list.
 ```javascript
 docTable.highlightDocs(['21','35','67']); // -> mark documents 21, 35, and 67 as faded
+```
+
+#### `DocTable.doClusterize([boolean [, chunkSize]])`
+
+Enable the table to utilise [clusterize.js](https://clusterize.js.org/), a third-party library chunking table rows and injecting them in the DOM chunk by chunk in order to process high numbers of rows. `boolean` is a flag for either enabling it (`true`) or disabling it (`false`), it defaults to `false`. `chunkSize` lets you set the number of rows to include in each chunk, it defaults to `100`. By default, the table will not use this option.
+```javascript
+docTable.doClusterize(true, 50); // -> table will be rendered by chunks of 50 rows 
 ```
