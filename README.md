@@ -1,10 +1,14 @@
 # Topic Mapping Interface [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
+The Topic Mapping Interface provides methods to parse data from the Topic Mapping Pipeline and present it with visualisation modules.
+
 ## Structure
 
 Code is in ```src/```, includes scripts and styles.
 
 App is deployed in ```app/dist/``` as bundled and minified code. The rest of ```app``` is the code for custom app.
+
+You can find the latest bundles on [the release page](https://github.com/strategicfutureslab/Topic_Mapping_Interface/releases).
 
 ## Develop and Build
 

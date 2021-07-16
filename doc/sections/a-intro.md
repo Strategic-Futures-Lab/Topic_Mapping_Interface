@@ -1,7 +1,7 @@
 
 # Topic Mapping Interface - API doc [![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
 
-The Topic Mapping Interface script and stylesheet bundles are located in [`app/dist`](../app/dist).
+The Topic Mapping Interface script and stylesheet bundles are located in [`app/dist`](../app/dist), or on [the release page](https://github.com/strategicfutureslab/Topic_Mapping_Interface/releases).
 
 The stylesheet contains the styles of all page modules as well as default styles for the page overall.
 Check [this section](#styles) for more details.
