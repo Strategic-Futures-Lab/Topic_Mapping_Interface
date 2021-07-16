@@ -187,7 +187,8 @@ function parseURL(){
 
 DM.loadAndProcessDataFromUrls(urls).then(()=>{
     console.log(DM.data);
-    mainMap.render(DM.data.mainMap)
+    mainMap.render(DM.data.mainMap);
+    
     let distribValues = DM.getDistributionLabels();
     distribValues.unshift({value:'All',text:'All'});
     dropdown.setOptions(distribValues);

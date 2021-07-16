@@ -27,17 +27,13 @@ export default function(container='body', width=800, height=600){
         clusterize = null,
         chunkSize = 100;
 
-    
-
     let docTable = DocTable._wrapper.append('div')
         .classed('table', true);
     let rowsFilter = docTable.append('span')
         .classed('rowsFilter', true);
     let table = docTable.append('table'),
         thead = table.append('thead'),
-        tbody = table.append('tbody')
-            .attr('id', 'contentArea')
-            .classed('clusterize-content', true),
+        tbody = table.append('tbody'),
         titleRow = thead.append('tr');
 
     function setupClusterize(){
@@ -164,7 +160,7 @@ export default function(container='body', width=800, height=600){
         });
 
         cells.each(function(d){
-            if(d.tooltip !== null || d.tooltipChart !== null){
+            if(!doClusterize && (d.tooltip !== null || d.tooltipChart !== null)){
                 cellsTooltips.push(
                     Tippy(this,{
                         theme: d.tooltip !== null ? 'dark' : 'light',

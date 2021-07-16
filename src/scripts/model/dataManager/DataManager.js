@@ -6,6 +6,8 @@ import trendData from './trendData';
 import searchData from './searchData';
 import statData from './statData';
 
+import docListData from './docListData';
+
 export default function(){
 
     // urls:
@@ -31,6 +33,9 @@ export default function(){
     searchData(Data);
     // Add stat features
     statData(Data);
+
+    // Add doc list features
+    docListData(Data);
 
     return Data;
 

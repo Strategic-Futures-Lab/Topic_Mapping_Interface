@@ -114,6 +114,9 @@ docTable.highlightDocs(['21','35','67']); // -> mark documents 21, 35, and 67 as
 #### `DocTable.doClusterize([boolean [, chunkSize]])`
 
 Enable the table to utilise [clusterize.js](https://clusterize.js.org/), a third-party library chunking table rows and injecting them in the DOM chunk by chunk in order to process high numbers of rows. `boolean` is a flag for either enabling it (`true`) or disabling it (`false`), it defaults to `false`. `chunkSize` lets you set the number of rows to include in each chunk, it defaults to `100`. By default, the table will not use this option.
+
+**Note that using this option will prevent tooltips from functioning.**
+
 ```javascript
 docTable.doClusterize(true, 50); // -> table will be rendered by chunks of 50 rows 
 ```
