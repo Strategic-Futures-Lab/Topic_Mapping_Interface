@@ -21,9 +21,14 @@ let SM = tMap.StateManager();
 let mainMap = tMap.BubbleMap(PM.panel1.c, PM.panel1.w, PM.panel1.h)
     .setTooltip(d=>d.size)
     .setTooltipChart((t,d)=>{
-        tMap.HorizontalBarChart(t, 200, 100)
-            .setTicks(3)
-            .render(DM.getMainTopicDistribEntryNorm(d.topicId))
+        let sumByYear = tMap.dateConverter('%d/%m/%y', '%Y'),
+            trendsRange = ['%d/%m/%y', '01/01/11', '01/01/20'];
+        tMap.TrendChart(t,300,300)
+            .render([DM.getMainTopicTrend(d.topicId,sumByYear,trendsRange)])
+        // tMap.HorizontalBarChart(t, 200, 100)
+        //     .setTicks(3)
+        //     .render(DM.getMainTopicDistribEntryNorm(d.topicId))
+
     })
     .setBubbleClick(selectMainTopic)
     .addDefaultText('Loading...', 2, true)

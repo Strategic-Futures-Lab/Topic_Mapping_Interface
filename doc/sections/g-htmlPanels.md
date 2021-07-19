@@ -56,7 +56,7 @@ p.toggleTitle('Panel A'); // -> puts 'Panel A' as the top of the panel
 p.toggleTitle(); // -> removes 'Panel A' from the panel
 ```
 
-#### `Panel.addDefault(string, [, size [, blinking]])`
+#### `Panel.addDefaultText(string, [, size [, blinking]])`
 
 Puts a message, `string`, at the center of the visualisation. `size` lets you specify the message size in `em`, defaults to 1. `blinking` lets you specify if you want the message to blink `true` or not `false` (default), for example when loading data.
 ```javascript
